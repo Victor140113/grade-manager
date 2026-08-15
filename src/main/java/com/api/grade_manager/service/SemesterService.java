@@ -46,7 +46,7 @@ public class SemesterService {
         GradeManagerEntity gm = gmService.getEntityById(gmId);
         if(gm == null) throw new GMNotFoundException(" Gerenciador de Notas não encontrado!");
 
-        SemesterEntity semester = database.findByIdAndGradeManagerId(gm.getId(), semesterId);
+        SemesterEntity semester = database.findByIdAndGradeManagerId(semesterId, gm.getId());
         if(semester == null) throw new SemesterNotFoundException(" Semestre não encontrado");
 
         gm.getSemestre().remove(semester);

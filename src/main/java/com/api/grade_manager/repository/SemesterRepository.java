@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SemesterRepository extends JpaRepository<SemesterEntity, Long> {
 
-    public SemesterEntity findByIdAndGradeManagerId(Long gmId, Long semesterId);
+    public SemesterEntity findByIdAndGradeManagerId(Long semesterId, Long gmId);
 }
