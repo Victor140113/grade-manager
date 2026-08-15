@@ -16,7 +16,7 @@ public class GradeEntity {
     private Double value;
     private Integer bim;
 
-    @OneToMany(mappedBy = "grade")
+    @OneToMany(mappedBy = "grade", cascade = CascadeType.REMOVE)
     private List<GradeUpdateEntity> updates = new ArrayList<>();
 
     @ManyToOne

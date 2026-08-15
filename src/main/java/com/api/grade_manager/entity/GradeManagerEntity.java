@@ -15,7 +15,7 @@ public class GradeManagerEntity {
 
     private String nome;
 
-    @OneToMany(mappedBy = "gm")
+    @OneToMany(mappedBy = "gm", cascade = CascadeType.REMOVE)
     private List<SemesterEntity> semestre = new ArrayList<>();
 
     public GradeManagerEntity() {
@@ -24,6 +24,14 @@ public class GradeManagerEntity {
     public GradeManagerEntity(String nome, List<SemesterEntity> semestre) {
         this.nome = nome;
         this.semestre = semestre;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {

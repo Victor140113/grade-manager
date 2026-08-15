@@ -2,12 +2,11 @@ package com.api.grade_manager.controller;
 
 import com.api.grade_manager.dto.request.CreateGMRequest;
 import com.api.grade_manager.dto.response.CreateGMResponse;
+import com.api.grade_manager.exception.GMNotFoundException;
 import com.api.grade_manager.service.GradeManagerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class GradeManagerController {
@@ -22,6 +21,18 @@ public class GradeManagerController {
     public ResponseEntity<CreateGMResponse> createGM(@RequestBody CreateGMRequest data){
 
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createGM(data));
+    }
+
+    @DeleteMapping("/grade-manager/{gmId}")
+    public ResponseEntity<?> deleteGM(@PathVariable Long gmId){
+
+        try{
+            service.deleteGM(gmId);
+            return ResponseEntity.ok().build();
+        }catch (GMNotFoundException e){
+            System.out.println(e);
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

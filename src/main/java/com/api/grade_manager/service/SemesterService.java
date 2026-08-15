@@ -5,6 +5,7 @@ import com.api.grade_manager.dto.response.CreateSemesterResponse;
 import com.api.grade_manager.entity.GradeManagerEntity;
 import com.api.grade_manager.entity.SemesterEntity;
 import com.api.grade_manager.exception.GMNotFoundException;
+import com.api.grade_manager.exception.SemesterNotFoundException;
 import com.api.grade_manager.repository.SemesterRepository;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,19 @@ public class SemesterService {
 
         return new CreateSemesterResponse(semester.getNome().trim());
 
+    }
+
+    public void deleteSemester(Long gmId, Long semesterId){
+
+        GradeManagerEntity gm = gmService.getEntityById(gmId);
+        if(gm == null) throw new GMNotFoundException(" Gerenciador de Notas não encontrado!");
+
+        SemesterEntity semester = database.findByIdAndGradeManagerId(gm.getId(), semesterId);
+        if(semester == null) throw new SemesterNotFoundException(" Semestre não encontrado");
+
+        gm.getSemestre().remove(semester);
+
+        database.delete(semester);
     }
 
     // Métodos Internos

@@ -5,6 +5,7 @@ import com.api.grade_manager.dto.response.CreateCourseResponse;
 import com.api.grade_manager.entity.CourseEntity;
 import com.api.grade_manager.entity.GradeEntity;
 import com.api.grade_manager.entity.SemesterEntity;
+import com.api.grade_manager.exception.CourseNotFoundException;
 import com.api.grade_manager.exception.SemesterNotFoundException;
 import com.api.grade_manager.repository.CourseRepository;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,19 @@ public class CourseService {
         gradeService.saveGradeOnCourse(course.getGrades().getLast(), course);
 
         return new CreateCourseResponse(course.getNome());
+    }
+
+    public void deleteCourse(Long courseId, Long semesterId){
+
+        SemesterEntity semester = semesterService.getSemesterById(semesterId);
+        if(semester == null) throw new SemesterNotFoundException(" Semestre não encontrado!");
+
+        CourseEntity course = database.findByIdAndSemesterId(courseId, semester.getId());
+        if(course == null) throw new CourseNotFoundException(" Curso não encontrado!");
+
+        semester.getCourse().remove(course);
+        database.delete(course);
+
     }
 
     // Métodos Internos

@@ -15,7 +15,7 @@ public class CourseEntity {
 
     private String nome;
 
-    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
     private List<GradeEntity> grade = new ArrayList<>();
 
     @ManyToOne

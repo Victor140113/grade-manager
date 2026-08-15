@@ -18,7 +18,7 @@ public class SemesterEntity {
     @ManyToOne
     private GradeManagerEntity gm;
 
-    @OneToMany(mappedBy = "semester", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "semester", cascade = CascadeType.REMOVE)
     private List<CourseEntity> course = new ArrayList<>();
 
     public SemesterEntity() {
