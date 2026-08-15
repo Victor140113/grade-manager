@@ -10,8 +10,8 @@ public class GradeUpdateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String descricao;
-    private Double valor;
+    private String description;
+    private Double value;
 
     @ManyToOne
     private GradeEntity grade;
@@ -19,25 +19,25 @@ public class GradeUpdateEntity {
     public GradeUpdateEntity() {
     }
 
-    public GradeUpdateEntity(String descricao, Double valor) {
-        this.descricao = descricao;
-        this.valor = valor;
+    public GradeUpdateEntity(String description, Double value) {
+        this.description = description;
+        this.value = value;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Double getValor() {
-        return valor;
+    public Double getValue() {
+        return value;
     }
 
-    public void setValor(Double valor) {
-        this.valor = valor;
+    public void setValue(Double value) {
+        this.value = value;
     }
 
     public GradeEntity getGrade() {

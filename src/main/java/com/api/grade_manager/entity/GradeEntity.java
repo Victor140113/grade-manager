@@ -13,7 +13,7 @@ public class GradeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double valor;
+    private Double value;
     private Integer bim;
 
     @OneToMany(mappedBy = "grade")
@@ -25,23 +25,34 @@ public class GradeEntity {
     public GradeEntity() {
     }
 
-    public GradeEntity(Double valor, List<GradeUpdateEntity> updates, Integer bim) {
-        this.valor = valor;
+    public GradeEntity(Double value, List<GradeUpdateEntity> updates, Integer bim) {
+        this.value = value;
         this.updates = updates;
         this.bim = bim;
     }
 
-    public GradeEntity(Double valor, Integer bim) {
-            this.valor = valor;
+    public GradeEntity(Double value, Integer bim) {
+            this.value = value;
             this.bim = bim;
     }
 
-    public Double getValor() {
-        return valor;
+    public void addValue(GradeUpdateEntity update){
+
+        if(this.value == null) this.value = 0.0;
+
+        this.value += update.getValue();
     }
 
-    public void setValor(Double valor) {
-        this.valor = valor;
+    public void subtractValue(GradeUpdateEntity update){
+        this.value -= update.getValue();
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
     }
 
     public List<GradeUpdateEntity> getUpdates() {

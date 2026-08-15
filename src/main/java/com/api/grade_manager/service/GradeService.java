@@ -20,4 +20,12 @@ public class GradeService {
         grade.setCourse(course);
         database.save(grade);
     }
+
+    public void saveGradeValues(GradeEntity grade){
+        database.save(grade);
+    }
+
+    public GradeEntity getGradeEntityById(Long id){
+        return database.findById(id).orElse(null);
+    }
 }
