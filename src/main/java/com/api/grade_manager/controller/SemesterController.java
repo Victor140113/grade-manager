@@ -2,12 +2,15 @@ package com.api.grade_manager.controller;
 
 import com.api.grade_manager.dto.request.CreateSemesterRequest;
 import com.api.grade_manager.dto.response.CreateSemesterResponse;
+import com.api.grade_manager.dto.response.SemesterResponse;
 import com.api.grade_manager.exception.GMNotFoundException;
 import com.api.grade_manager.exception.SemesterNotFoundException;
 import com.api.grade_manager.service.SemesterService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class SemesterController {
@@ -18,7 +21,7 @@ public class SemesterController {
         this.service = service;
     }
 
-    @PostMapping("/grade-manager/{idGM}/semester")
+    @PostMapping("/grade-manager/{gmId}/semester")
     public ResponseEntity<CreateSemesterResponse> createSemester(@RequestBody CreateSemesterRequest data, @PathVariable Long idGM){
 
         try {
@@ -43,4 +46,9 @@ public class SemesterController {
         }
     }
 
+    @GetMapping("/grade-manager/{gmId}/semester")
+    public ResponseEntity<List<SemesterResponse>> getSemesterList(@PathVariable Long gmId){
+
+        return ResponseEntity.ok(service.getSemesterList(gmId));
+    }
 }

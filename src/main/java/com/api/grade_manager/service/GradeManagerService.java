@@ -2,10 +2,13 @@ package com.api.grade_manager.service;
 
 import com.api.grade_manager.dto.request.CreateGMRequest;
 import com.api.grade_manager.dto.response.CreateGMResponse;
+import com.api.grade_manager.dto.response.GradeManagerResponse;
 import com.api.grade_manager.entity.GradeManagerEntity;
 import com.api.grade_manager.exception.GMNotFoundException;
 import com.api.grade_manager.repository.GradeManagerRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GradeManagerService {
@@ -35,6 +38,11 @@ public class GradeManagerService {
         if(gm == null) throw new GMNotFoundException(" Gerenciador de Notas não encontrado!");
 
         database.delete(gm);
+    }
+
+    public List<GradeManagerResponse> getGMResponse(){
+
+        return database.findAll().stream().map(gm -> new GradeManagerResponse(gm.getNome())).toList();
     }
 
     // Métodos Internos

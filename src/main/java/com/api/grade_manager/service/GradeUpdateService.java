@@ -2,12 +2,15 @@ package com.api.grade_manager.service;
 
 import com.api.grade_manager.dto.request.CreateGURequest;
 import com.api.grade_manager.dto.response.CreateGUResponse;
+import com.api.grade_manager.dto.response.GradeUpdateResponse;
 import com.api.grade_manager.entity.GradeEntity;
 import com.api.grade_manager.entity.GradeUpdateEntity;
 import com.api.grade_manager.exception.GUNotFoundException;
 import com.api.grade_manager.exception.GradeNotFoundException;
 import com.api.grade_manager.repository.GradeUpdateRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GradeUpdateService {
@@ -55,5 +58,10 @@ public class GradeUpdateService {
         gradeService.saveGradeValues(grade);
 
         database.delete(gu);
+    }
+
+    public List<GradeUpdateResponse> getGUList(Long gradeId){
+
+        return database.findAllByGradeId(gradeId).stream().map(gradeUpdate -> new GradeUpdateResponse(gradeUpdate.getDescription(), gradeUpdate.getValue())).toList();
     }
 }
