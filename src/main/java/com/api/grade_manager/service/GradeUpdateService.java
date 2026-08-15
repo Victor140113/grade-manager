@@ -2,7 +2,6 @@ package com.api.grade_manager.service;
 
 import com.api.grade_manager.dto.request.CreateGURequest;
 import com.api.grade_manager.dto.response.CreateGUResponse;
-import com.api.grade_manager.dto.response.DeleteGUResponse;
 import com.api.grade_manager.entity.GradeEntity;
 import com.api.grade_manager.entity.GradeUpdateEntity;
 import com.api.grade_manager.exception.GUNotFoundException;
@@ -48,7 +47,7 @@ public class GradeUpdateService {
         GradeEntity grade = gradeService.getGradeEntityById(gradeId);
         if(grade == null) throw new GradeNotFoundException(" A nota não foi encontrada!");
 
-        GradeUpdateEntity gu = database.findById(guId).orElse(null);
+        GradeUpdateEntity gu = database.findByIdAndGradeId(guId, gradeId);
         if(gu == null) throw new GUNotFoundException(" O Update de Nota não foi encontrado!");
 
         grade.subtractValue(gu);

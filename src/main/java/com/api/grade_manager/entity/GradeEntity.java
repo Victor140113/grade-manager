@@ -47,6 +47,14 @@ public class GradeEntity {
         this.value -= update.getValue();
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Double getValue() {
         return value;
     }

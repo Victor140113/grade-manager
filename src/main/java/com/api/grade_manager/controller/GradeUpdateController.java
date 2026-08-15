@@ -2,11 +2,10 @@ package com.api.grade_manager.controller;
 
 import com.api.grade_manager.dto.request.CreateGURequest;
 import com.api.grade_manager.dto.response.CreateGUResponse;
-import com.api.grade_manager.dto.response.DeleteGUResponse;
+import com.api.grade_manager.exception.ConflictException;
 import com.api.grade_manager.exception.GMNotFoundException;
 import com.api.grade_manager.exception.GUNotFoundException;
 import com.api.grade_manager.service.GradeUpdateService;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +42,10 @@ public class GradeUpdateController {
             System.out.println(e);
             return ResponseEntity.notFound().build();
 
+        }catch (ConflictException e){
+
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 }
