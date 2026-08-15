@@ -2,15 +2,14 @@ package com.api.grade_manager.controller;
 
 import com.api.grade_manager.dto.request.CreateGURequest;
 import com.api.grade_manager.dto.response.CreateGUResponse;
+import com.api.grade_manager.dto.response.DeleteGUResponse;
 import com.api.grade_manager.exception.GMNotFoundException;
+import com.api.grade_manager.exception.GUNotFoundException;
 import com.api.grade_manager.service.GradeUpdateService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class GradeUpdateController {
@@ -31,6 +30,19 @@ public class GradeUpdateController {
             System.out.println(e);
             return ResponseEntity.notFound().build();
         }
+    }
 
+    @DeleteMapping("/grade-manager/semester/course/grade/{gradeId}/grade-update/{guId}")
+    public ResponseEntity<?> deleteGradeUpdate(@PathVariable Long gradeId, @PathVariable Long guId){
+
+        try{
+            service.deleteGradeUpdate(gradeId, guId);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }catch (GMNotFoundException | GUNotFoundException e){
+
+            System.out.println(e);
+            return ResponseEntity.notFound().build();
+
+        }
     }
 }
