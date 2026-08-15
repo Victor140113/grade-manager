@@ -1,8 +1,10 @@
 package com.api.grade_manager.service;
 
 import com.api.grade_manager.dto.request.CreateGURequest;
+import com.api.grade_manager.dto.request.PutGURequest;
 import com.api.grade_manager.dto.response.CreateGUResponse;
 import com.api.grade_manager.dto.response.GradeUpdateResponse;
+import com.api.grade_manager.dto.response.PutGUResponse;
 import com.api.grade_manager.entity.GradeEntity;
 import com.api.grade_manager.entity.GradeUpdateEntity;
 import com.api.grade_manager.exception.GUNotFoundException;
@@ -63,5 +65,27 @@ public class GradeUpdateService {
     public List<GradeUpdateResponse> getGUList(Long gradeId){
 
         return database.findAllByGradeId(gradeId).stream().map(gradeUpdate -> new GradeUpdateResponse(gradeUpdate.getDescription(), gradeUpdate.getValue())).toList();
+    }
+
+    public PutGUResponse putGradeUpdate(PutGURequest data, Long guId, Long gradeId){
+
+        GradeEntity grade = gradeService.getGradeEntityById(gradeId);
+        if(grade == null) throw new GradeNotFoundException(" Nota não encontrada!");
+
+        GradeUpdateEntity gu = database.findByIdAndGradeId(guId, grade.getId());
+        if(gu == null) throw new GUNotFoundException(" A Atualização de Nota não foi encontrada!");
+
+        grade.subtractValue(gu);
+
+
+        gu.setDescription(data.getDescription());
+        gu.setValue(data.getValue());
+
+        grade.addValue(gu);
+
+        gradeService.saveGradeValues(grade);
+        database.save(gu);
+
+        return new PutGUResponse(gu.getDescription(), gu.getValue());
     }
 }
