@@ -63,7 +63,9 @@ public class CourseService {
 
     public List<CourseResponse> getCourseList(Long semesterId){
 
-        return database.findAllBySemesterId(semesterId).stream().map( course -> new CourseResponse(course.getNome(), course.getGrades())).toList();
+        return database.findAllBySemesterId(semesterId).stream().map( course -> new CourseResponse(course.getNome()
+                , course.getGrades().getFirst().getValue()
+                , course.getGrades().getLast().getValue())).toList();
     }
 
     // Métodos Internos

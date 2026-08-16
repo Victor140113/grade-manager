@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Grade Manager · API</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark">GM</div>
+            <strong>Grade Manager</strong></div>
+        <nav class="nav">
+            <div class="nav-title">Navegação</div>
+            <a href="index.html">⌂ Dashboard</a><a href="managers.html">▦ Gerenciadores</a><a href="semesters.html">◫
+            Semestres</a><a href="courses.html">▤ Matérias</a><a class="active" href="api.html">◇ API / Endpoints</a>
+        </nav>
+        <div class="userbox">
+            <div class="avatar">V</div>
+            <div><strong>Victor</strong><small>Desenvolvedor</small></div>
+        </div>
+    </aside>
+    <main class="main">
+        <header class="top">
+            <div>
+                <div class="eyebrow">REST API</div>
+                <h1>Endpoints</h1>
+                <p class="subtitle">Mapa visual da API atual do Grade Manager.</p></div>
+            <span class="badge green">localhost:8080</span></header>
+        <section class="api-layout">
+            <div class="card item-card">
+                <div class="section-head">
+                    <div><h2>Grade Manager</h2>
+                        <p>Criação, listagem e remoção.</p></div>
+                </div>
+                <div class="endpoint"><span class="method GET">GET</span>
+                    <div><code>/grade-manager</code><small>Lista os GMs</small></div>
+                </div>
+                <div class="endpoint"><span class="method POST">POST</span>
+                    <div><code>/grade-manager</code><small>Cria um GM · body { nome }</small></div>
+                </div>
+                <div class="endpoint"><span class="method DELETE">DELETE</span>
+                    <div><code>/grade-manager/{gmId}</code><small>Exclui um GM</small></div>
+                </div>
+                <div class="section-head section">
+                    <div><h2>Semester</h2>
+                        <p>Semestres pertencem a um GM.</p></div>
+                </div>
+                <div class="endpoint"><span class="method GET">GET</span>
+                    <div><code>/grade-manager/{gmId}/semester</code><small>Lista os semestres</small></div>
+                </div>
+                <div class="endpoint"><span class="method POST">POST</span>
+                    <div><code>/grade-manager/{gmId}/semester</code><small>Cria um semestre</small></div>
+                </div>
+                <div class="endpoint"><span class="method DELETE">DELETE</span>
+                    <div><code>/grade-manager/{gmId}/semester/{semesterId}</code><small>Exclui um semestre</small></div>
+                </div>
+                <div class="section-head section">
+                    <div><h2>Course</h2>
+                        <p>Matérias pertencem a um semestre.</p></div>
+                </div>
+                <div class="endpoint"><span class="method GET">GET</span>
+                    <div><code>/grade-manager/semester/{semesterId}/course</code><small>Lista as matérias</small></div>
+                </div>
+                <div class="endpoint"><span class="method POST">POST</span>
+                    <div><code>/grade-manager/semester/{semesterId}/course</code><small>Cria matéria + suas
+                        Grades</small></div>
+                </div>
+                <div class="endpoint"><span class="method DELETE">DELETE</span>
+                    <div><code>/grade-manager/semester/{semesterId}/course/{courseId}</code><small>Exclui
+                        matéria</small></div>
+                </div>
+                <div class="section-head section">
+                    <div><h2>Grade Update</h2>
+                        <p>Atualizações alteram o valor acumulado da Grade.</p></div>
+                </div>
+                <div class="endpoint"><span class="method GET">GET</span>
+                    <div><code>/grade-manager/semester/course/grade/{gradeId}/grade-update</code><small>Lista os
+                        updates</small></div>
+                </div>
+                <div class="endpoint"><span class="method POST">POST</span>
+                    <div><code>/grade-manager/semester/course/grade/{gradeId}/grade-update</code><small>Adiciona
+                        pontos</small></div>
+                </div>
+                <div class="endpoint"><span class="method PUT">PUT</span>
+                    <div><code>/grade-manager/semester/course/grade/{gradeId}/grade-update/{guId}</code><small>Edita um
+                        update</small></div>
+                </div>
+                <div class="endpoint"><span class="method DELETE">DELETE</span>
+                    <div><code>/grade-manager/semester/course/grade/{gradeId}/grade-update/{guId}</code><small>Remove
+                        pontos e o update</small></div>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="card item-card">
+                    <div class="section-head">
+                        <div><h2>Exemplo · POST</h2>
+                            <p>Criar um Grade Update.</p></div>
+                    </div>
+                    <div class="code">POST /grade-manager/semester/course/grade/7/grade-update
+
+                        {
+                        "description": "Prova",
+                        "value": 5.0
+                        }
+                    </div>
+                </div>
+                <div class="card item-card">
+                    <div class="section-head">
+                        <div><h2>Fluxo da interface</h2>
+                            <p>O caminho que seus cards podem seguir.</p></div>
+                    </div>
+                    <div class="flow"><span class="flow-item">GM</span><span class="flow-arrow">→</span><span
+                            class="flow-item">Semestre</span><span class="flow-arrow">→</span><span class="flow-item">Matéria</span><span
+                            class="flow-arrow">→</span><span class="flow-item">Grade</span><span
+                            class="flow-arrow">→</span><span class="flow-item">Update</span></div>
+                </div>
+                <div class="card item-card">
+                    <div class="section-head">
+                        <div><h2>Resposta de exemplo</h2>
+                            <p>Use como referência ao montar a tela.</p></div>
+                    </div>
+                    <div class="code">[
+                        {
+                        "name": "Matemática",
+                        "grades": [
+                        { "bim": 1, "valor": 8.5 },
+                        { "bim": 2, "valor": 7.0 }
+                        ]
+                        }
+                        ]
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

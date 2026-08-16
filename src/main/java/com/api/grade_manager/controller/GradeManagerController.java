@@ -20,6 +20,7 @@ public class GradeManagerController {
         this.service = service;
     }
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @PostMapping("/grade-manager")
     public ResponseEntity<CreateGMResponse> createGM(@RequestBody CreateGMRequest data){
 
@@ -38,6 +39,7 @@ public class GradeManagerController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @GetMapping("/grade-manager")
     public ResponseEntity<List<GradeManagerResponse>> getGMList(){
 

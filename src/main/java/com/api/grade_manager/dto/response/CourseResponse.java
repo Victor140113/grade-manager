@@ -7,11 +7,13 @@ import java.util.List;
 public class CourseResponse {
 
     private String name;
-    private List<GradeEntity> grades;
+    private Double nota1Bim;
+    private Double nota2Bim;
 
-    public CourseResponse(String name, List<GradeEntity> grades) {
+    public CourseResponse(String name, Double nota1Bim, Double nota2Bim) {
         this.name = name;
-        this.grades = grades;
+        this.nota1Bim = nota1Bim;
+        this.nota2Bim = nota2Bim;
     }
 
     public String getName() {
@@ -22,11 +24,19 @@ public class CourseResponse {
         this.name = name;
     }
 
-    public List<GradeEntity> getGrades() {
-        return grades;
+    public Double getNota1Bim() {
+        return nota1Bim;
     }
 
-    public void setGrades(List<GradeEntity> grades) {
-        this.grades = grades;
+    public void setNota1Bim(Double nota1Bim) {
+        this.nota1Bim = nota1Bim;
+    }
+
+    public Double getNota2Bim() {
+        return nota2Bim;
+    }
+
+    public void setNota2Bim(Double nota2Bim) {
+        this.nota2Bim = nota2Bim;
     }
 }

@@ -67,7 +67,7 @@ public class GradeUpdateController {
 
         try {
             PutGUResponse gu = service.putGradeUpdate(data, guId, gradeId);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(gu);
+            return ResponseEntity.ok(gu);
         }catch (GUNotFoundException | GradeNotFoundException e){
             System.out.println(e);
             return ResponseEntity.notFound().build();

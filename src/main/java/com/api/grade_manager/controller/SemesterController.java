@@ -22,10 +22,10 @@ public class SemesterController {
     }
 
     @PostMapping("/grade-manager/{gmId}/semester")
-    public ResponseEntity<CreateSemesterResponse> createSemester(@RequestBody CreateSemesterRequest data, @PathVariable Long idGM){
+    public ResponseEntity<CreateSemesterResponse> createSemester(@RequestBody CreateSemesterRequest data, @PathVariable Long gmId){
 
         try {
-            CreateSemesterResponse semesterResponse = service.createSemester(data, idGM);
+            CreateSemesterResponse semesterResponse = service.createSemester(data, gmId);
             return ResponseEntity.status(HttpStatus.CREATED).body(semesterResponse);
         }catch (GMNotFoundException e){
             System.out.println(e);

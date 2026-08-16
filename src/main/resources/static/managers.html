@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Grade Managers</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark">GM</div>
+            <strong>Grade Manager</strong></div>
+        <nav class="nav">
+            <div class="nav-title">Navegação</div>
+            <a href="index.html">⌂ Dashboard</a><a class="active" href="managers.html">▦ Gerenciadores</a><a
+                href="semesters.html">◫ Semestres</a><a href="courses.html">▤ Matérias</a><a href="api.html">◇ API /
+            Endpoints</a></nav>
+        <div class="userbox">
+            <div class="avatar">V</div>
+            <div><strong>Victor</strong><small>Desenvolvedor</small></div>
+        </div>
+    </aside>
+    <main class="main">
+        <header class="top">
+            <div>
+                <div class="eyebrow">Gerenciadores</div>
+                <h1>Meus Grade Managers</h1>
+                <p class="subtitle">Cards de exemplo para você substituir pelos dados da API.</p></div>
+            <button class="btn primary">+ Novo gerenciador</button>
+        </header>
+        <section class="grid grid-3">
+            <article class="card item-card">
+                <div class="item-head">
+                    <div class="icon">F</div>
+                    <div class="item-main"><h2>Faculdade</h2>
+                        <p>Meu curso principal</p></div>
+                    <span class="badge cyan">ID 1</span></div>
+                <div class="meta"><span class="badge">8 semestres</span><span class="badge green">Ativo</span></div>
+                <div class="card-footer"><a class="btn" href="semesters.html">Ver semestres</a>
+                    <button class="btn">Editar</button>
+                    <button class="btn danger">Excluir</button>
+                </div>
+            </article>
+            <article class="card item-card">
+                <div class="item-head">
+                    <div class="icon">J</div>
+                    <div class="item-main"><h2>Java</h2>
+                        <p>Trilha de estudos</p></div>
+                    <span class="badge cyan">ID 2</span></div>
+                <div class="meta"><span class="badge">4 semestres</span><span class="badge green">Ativo</span></div>
+                <div class="card-footer"><a class="btn" href="semesters.html">Ver semestres</a>
+                    <button class="btn">Editar</button>
+                    <button class="btn danger">Excluir</button>
+                </div>
+            </article>
+            <article class="card item-card">
+                <div class="item-head">
+                    <div class="icon">W</div>
+                    <div class="item-main"><h2>Web</h2>
+                        <p>HTML, CSS e JavaScript</p></div>
+                    <span class="badge cyan">ID 3</span></div>
+                <div class="meta"><span class="badge">2 semestres</span><span class="badge yellow">Em andamento</span>
+                </div>
+                <div class="card-footer"><a class="btn" href="semesters.html">Ver semestres</a>
+                    <button class="btn">Editar</button>
+                    <button class="btn danger">Excluir</button>
+                </div>
+            </article>
+        </section>
+        <section class="section card item-card">
+            <div class="section-head">
+                <div><h2>Como isso vai virar API</h2>
+                    <p>O card acima é apenas visual. Você fará o GET e montará os elementos com JavaScript.</p></div>
+            </div>
+            <div class="code">fetch("/grade-manager")<br>&nbsp;&nbsp;.then(response =&gt; response.json())<br>&nbsp;&nbsp;.then(data
+                =&gt; { /* criar os cards aqui */ });
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

@@ -2,17 +2,17 @@ package com.api.grade_manager.dto.response;
 
 public class GradeManagerResponse {
 
-    private String nome;
+    private String name;
 
-    public GradeManagerResponse(String nome) {
-        this.nome = nome;
+    public GradeManagerResponse(String name) {
+        this.name = name;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 }

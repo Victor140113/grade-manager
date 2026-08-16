@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Grade Manager · Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark">GM</div>
+            <strong>Grade Manager</strong></div>
+        <nav class="nav">
+            <div class="nav-title">Navegação</div>
+            <a class="active" href="index.html">⌂ Dashboard</a>
+            <a href="managers.html">▦ Gerenciadores</a>
+            <a href="semesters.html">◫ Semestres</a>
+            <a href="courses.html">▤ Matérias</a>
+            <a href="api.html">◇ API / Endpoints</a>
+        </nav>
+        <div class="userbox">
+            <div class="avatar">V</div>
+            <div><strong>Victor</strong><small>Desenvolvedor</small></div>
+        </div>
+    </aside>
+    <main class="main">
+        <header class="top">
+            <div>
+                <div class="eyebrow">Grade Manager</div>
+                <h1>Olá, Victor 👋</h1>
+                <p class="subtitle">Uma visão rápida dos seus gerenciadores de notas.</p></div>
+            <div class="actions">
+                <a class="btn" href="api.html">Ver API</a>
+                <a class="btn primary" href="managers.html">+
+                Novo gerenciador</a></div>
+        </header>
+        <section class="grid grid-4">
+            <div class="card stat">
+                <div class="stat-top">Gerenciadores
+                    <div class="stat-icon">GM</div>
+                </div>
+                <strong>3</strong><span>exemplos</span></div>
+            <div class="card stat">
+                <div class="stat-top">Semestres
+                    <div class="stat-icon">S</div>
+                </div>
+                <strong>5</strong><span>cadastrados</span></div>
+            <div class="card stat">
+                <div class="stat-top">Matérias
+                    <div class="stat-icon">M</div>
+                </div>
+                <strong>18</strong><span>em todos os semestres</span></div>
+            <div class="card stat">
+                <div class="stat-top">Atualizações
+                    <div class="stat-icon">+</div>
+                </div>
+                <strong>42</strong><span>de notas</span></div>
+        </section>
+        <section class="hero section">
+            <div class="hero-row">
+                <div>
+                    <div class="eyebrow">Estrutura</div>
+                    <h2>O caminho dos dados</h2>
+                    <p class="subtitle">A interface vai consumir a hierarquia que você criou no backend.</p></div>
+            </div>
+            <div class="flow">
+                <span class="flow-item">Grade Manager</span><span class="flow-arrow">→</span>
+                <span class="flow-item">Semester</span><span class="flow-arrow">→</span>
+                <span class="flow-item">Course</span><span class="flow-arrow">→</span>
+                <span class="flow-item">Grade</span><span class="flow-arrow">→</span>
+                <span class="flow-item">Grade Update</span>
+            </div>
+        </section>
+        <section class="section grid grid-2">
+            <div class="card item-card">
+                <div class="section-head">
+                    <div><h2>Gerenciadores recentes</h2>
+                        <p>Cards estáticos de exemplo.</p></div>
+                    <a class="btn" href="managers.html">Ver todos</a></div>
+                <div class="grid grid-2">
+                    <div class="card item-card">
+                        <div class="item-head">
+                            <div class="icon">F</div>
+                            <div class="item-main"><h3>Faculdade</h3>
+                                <p>8 semestres</p></div>
+                        </div>
+                        <div class="meta"><span class="badge cyan">42 matérias</span><span class="badge">ID 1</span>
+                        </div>
+                    </div>
+                    <div class="card item-card">
+                        <div class="item-head">
+                            <div class="icon">P</div>
+                            <div class="item-main"><h3>Projeto pessoal</h3>
+                                <p>2 semestres</p></div>
+                        </div>
+                        <div class="meta"><span class="badge cyan">9 matérias</span><span class="badge">ID 2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card item-card">
+                <div class="section-head">
+                    <div><h2>Endpoints principais</h2>
+                        <p>Os endpoints reais da API atual.</p></div>
+                    <a class="btn" href="api.html">Documentação</a></div>
+                <div class="endpoint"><span class="method GET">GET</span>
+                    <div><code>/grade-manager</code><small>Lista os gerenciadores</small></div>
+                </div>
+                <div class="endpoint"><span class="method POST">POST</span>
+                    <div><code>/grade-manager</code><small>Cria um gerenciador</small></div>
+                </div>
+                <div class="endpoint"><span class="method GET">GET</span>
+                    <div><code>/grade-manager/{gmId}/semester</code><small>Lista os semestres de um GM</small></div>
+                </div>
+                <div class="endpoint"><span class="method POST">POST</span>
+                    <div><code>/grade-manager/semester/{semesterId}/course</code><small>Cria uma matéria</small></div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>
