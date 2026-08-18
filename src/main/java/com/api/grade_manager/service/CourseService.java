@@ -3,6 +3,8 @@ package com.api.grade_manager.service;
 import com.api.grade_manager.dto.request.CreateCourseRequest;
 import com.api.grade_manager.dto.response.CourseResponse;
 import com.api.grade_manager.dto.response.CreateCourseResponse;
+import com.api.grade_manager.dto.response.GradeResponse;
+import com.api.grade_manager.dto.response.GradeUpdateResponse;
 import com.api.grade_manager.entity.CourseEntity;
 import com.api.grade_manager.entity.GradeEntity;
 import com.api.grade_manager.entity.SemesterEntity;
@@ -11,6 +13,7 @@ import com.api.grade_manager.exception.SemesterNotFoundException;
 import com.api.grade_manager.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,10 +31,10 @@ public class CourseService {
 
     // Métodos Externos
 
-    public CreateCourseResponse createCourse(CreateCourseRequest data, Long semesterId){
+    public CreateCourseResponse createCourse(CreateCourseRequest data, Long semesterId) {
 
         SemesterEntity semester = semesterService.getSemesterById(semesterId);
-        if(semester == null) throw new SemesterNotFoundException(" Semestre não encontrado!");
+        if (semester == null) throw new SemesterNotFoundException(" Semestre não encontrado!");
 
         CourseEntity course = new CourseEntity();
         course.setNome(data.getNome());
@@ -48,29 +51,45 @@ public class CourseService {
         return new CreateCourseResponse(course.getNome());
     }
 
-    public void deleteCourse(Long courseId, Long semesterId){
+    public void deleteCourse(Long courseId, Long semesterId) {
 
         SemesterEntity semester = semesterService.getSemesterById(semesterId);
-        if(semester == null) throw new SemesterNotFoundException(" Semestre não encontrado!");
+        if (semester == null) throw new SemesterNotFoundException(" Semestre não encontrado!");
 
         CourseEntity course = database.findByIdAndSemesterId(courseId, semester.getId());
-        if(course == null) throw new CourseNotFoundException(" Curso não encontrado!");
+        if (course == null) throw new CourseNotFoundException(" Curso não encontrado!");
 
         semester.getCourse().remove(course);
         database.delete(course);
 
     }
 
-    public List<CourseResponse> getCourseList(Long semesterId){
+    public List<CourseResponse> getCourseList(Long semesterId) {
 
-        return database.findAllBySemesterId(semesterId).stream().map( course -> new CourseResponse(course.getNome()
-                , course.getGrades().getFirst().getValue()
-                , course.getGrades().getLast().getValue())).toList();
+        List<CourseEntity> courseEntities = database.findAllBySemesterId(semesterId);
+        List<CourseResponse> courseResponse = courseEntities.stream().map(course -> new CourseResponse(
+                        course.getId(),
+                        course.getNome(),
+                        course.getGrades().stream().map(grade -> new GradeResponse(
+                                        grade.getId(),
+                                        grade.getValue(), grade.getBim(),
+                                        grade.getUpdates().stream().map(gradeUpdate -> new GradeUpdateResponse(
+                                                        gradeUpdate.getId(),
+                                                        gradeUpdate.getDescription(), gradeUpdate.getValue(),
+                                                        gradeUpdate.getGrade().getId()
+                                                ))
+                                                .toList()
+                                ))
+                                .toList()
+                ))
+                .toList();
+
+        return courseResponse;
     }
 
     // Métodos Internos
 
-    public CourseEntity getCourseById(Long id){
+    public CourseEntity getCourseById(Long id) {
         return database.findById(id).orElse(null);
     }
 

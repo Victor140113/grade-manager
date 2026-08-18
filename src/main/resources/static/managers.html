@@ -14,7 +14,7 @@
             <strong>Grade Manager</strong></div>
         <nav class="nav">
             <div class="nav-title">Navegação</div>
-            <a href="index.html">⌂ Dashboard</a><a class="active" href="managers.html">▦ Gerenciadores</a><a
+            <a href="index.html">⌂ Dashboard</a><a class="active" href="managers.html">▦ Grades de Notas</a><a
                 href="semesters.html">◫ Semestres</a><a href="courses.html">▤ Matérias</a><a href="api.html">◇ API /
             Endpoints</a></nav>
         <div class="userbox">
@@ -25,49 +25,49 @@
     <main class="main">
         <header class="top">
             <div>
-                <div class="eyebrow">Gerenciadores</div>
-                <h1>Meus Grade Managers</h1>
+                <div class="eyebrow">Grades de Notas</div>
+                <h1>Minhas Grades</h1>
                 <p class="subtitle">Cards de exemplo para você substituir pelos dados da API.</p></div>
-            <button class="btn primary">+ Novo gerenciador</button>
+            <button class="btn primary">+ Nova Grade de Notas</button>
         </header>
-        <section class="grid grid-3">
-            <article class="card item-card">
-                <div class="item-head">
-                    <div class="icon">F</div>
-                    <div class="item-main"><h2>Faculdade</h2>
-                        <p>Meu curso principal</p></div>
-                    <span class="badge cyan">ID 1</span></div>
-                <div class="meta"><span class="badge">8 semestres</span><span class="badge green">Ativo</span></div>
-                <div class="card-footer"><a class="btn" href="semesters.html">Ver semestres</a>
-                    <button class="btn">Editar</button>
-                    <button class="btn danger">Excluir</button>
-                </div>
-            </article>
-            <article class="card item-card">
-                <div class="item-head">
-                    <div class="icon">J</div>
-                    <div class="item-main"><h2>Java</h2>
-                        <p>Trilha de estudos</p></div>
-                    <span class="badge cyan">ID 2</span></div>
-                <div class="meta"><span class="badge">4 semestres</span><span class="badge green">Ativo</span></div>
-                <div class="card-footer"><a class="btn" href="semesters.html">Ver semestres</a>
-                    <button class="btn">Editar</button>
-                    <button class="btn danger">Excluir</button>
-                </div>
-            </article>
-            <article class="card item-card">
-                <div class="item-head">
-                    <div class="icon">W</div>
-                    <div class="item-main"><h2>Web</h2>
-                        <p>HTML, CSS e JavaScript</p></div>
-                    <span class="badge cyan">ID 3</span></div>
-                <div class="meta"><span class="badge">2 semestres</span><span class="badge yellow">Em andamento</span>
-                </div>
-                <div class="card-footer"><a class="btn" href="semesters.html">Ver semestres</a>
-                    <button class="btn">Editar</button>
-                    <button class="btn danger">Excluir</button>
-                </div>
-            </article>
+        <section class="grid grid-3" id="grid-cards">
+<!--            <article class="card item-card">-->
+<!--                <div class="item-head">-->
+<!--                    <div class="icon">F</div>-->
+<!--                    <div class="item-main"><h2>Faculdade</h2>-->
+<!--                        <p>Meu curso principal</p></div>-->
+<!--                </div>-->
+<!--                <div class="meta"><span class="badge">8 semestres</span><span class="badge green">Ativo</span></div>-->
+<!--                <div class="card-footer"><a class="btn" href="semesters.html">Ver semestres</a>-->
+<!--                    <button class="btn">Editar</button>-->
+<!--                    <button class="btn danger">Excluir</button>-->
+<!--                </div>-->
+<!--            </article>-->
+<!--            <article class="card item-card">-->
+<!--                <div class="item-head">-->
+<!--                    <div class="icon">J</div>-->
+<!--                    <div class="item-main"><h2>Java</h2>-->
+<!--                        <p>Trilha de estudos</p></div>-->
+<!--                </div>-->
+<!--                <div class="meta"><span class="badge">4 semestres</span><span class="badge green">Ativo</span></div>-->
+<!--                <div class="card-footer"><a class="btn" href="semesters.html">Ver semestres</a>-->
+<!--                    <button class="btn">Editar</button>-->
+<!--                    <button class="btn danger">Excluir</button>-->
+<!--                </div>-->
+<!--            </article>-->
+<!--            <article class="card item-card">-->
+<!--                <div class="item-head">-->
+<!--                    <div class="icon">W</div>-->
+<!--                    <div class="item-main"><h2>Web</h2>-->
+<!--                        <p>HTML, CSS e JavaScript</p></div>-->
+<!--                </div>-->
+<!--                <div class="meta"><span class="badge">2 semestres</span><span class="badge yellow">Em andamento</span>-->
+<!--                </div>-->
+<!--                <div class="card-footer"><a class="btn" href="semesters.html">Ver semestres</a>-->
+<!--                    <button class="btn">Editar</button>-->
+<!--                    <button class="btn danger">Excluir</button>-->
+<!--                </div>-->
+<!--            </article>-->
         </section>
         <section class="section card item-card">
             <div class="section-head">
@@ -80,5 +80,7 @@
         </section>
     </main>
 </div>
+
+<script src="js/managers.js"></script>
 </body>
 </html>

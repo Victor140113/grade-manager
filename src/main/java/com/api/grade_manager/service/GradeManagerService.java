@@ -42,7 +42,7 @@ public class GradeManagerService {
 
     public List<GradeManagerResponse> getGMResponse(){
 
-        return database.findAll().stream().map(gm -> new GradeManagerResponse(gm.getNome())).toList();
+        return database.findAll().stream().map(gm -> new GradeManagerResponse(gm.getNome(), gm.getId(), gm.getSemestre().size())).toList();
     }
 
     // Métodos Internos

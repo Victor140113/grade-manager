@@ -196,11 +196,13 @@ h3 {
     color: var(--text);
     padding: 10px 14px;
     border-radius: 10px;
-    cursor: pointer
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .btn:hover {
-    background: var(--panel-2)
+    background: var(--panel-2);
+    transform: scale(1.04);
 }
 
 .btn.primary {
@@ -234,7 +236,7 @@ h3 {
     border: 1px solid var(--line);
     background: rgba(18, 26, 45, .9);
     border-radius: 16px;
-    box-shadow: var(--shadow)
+    box-shadow: var(--shadow);
 }
 
 .stat {
@@ -280,7 +282,7 @@ h3 {
     justify-content: space-between;
     align-items: center;
     gap: 15px;
-    margin-bottom: 12px
+    margin-bottom: 16px
 }
 
 .section-head p {
@@ -338,7 +340,8 @@ h3 {
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    align-items: flex-start
+    align-items: center;
+    width: 100%;
 }
 
 .icon {
@@ -366,7 +369,8 @@ h3 {
     display: flex;
     gap: 7px;
     flex-wrap: wrap;
-    margin-top: 15px
+    margin-top: 15px;
+    width: 100%;
 }
 
 .badge {
@@ -397,7 +401,8 @@ h3 {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
-    margin-top: 16px
+    margin-top: 16px;
+    width: 100%;
 }
 
 .table-wrap {
@@ -539,7 +544,7 @@ tr:last-child td {
 }
 
 .update-main {
-    flex: 1
+    flex: 1;
 }
 
 .update-main small {

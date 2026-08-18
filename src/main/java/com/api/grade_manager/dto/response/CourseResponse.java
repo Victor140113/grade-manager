@@ -1,19 +1,25 @@
 package com.api.grade_manager.dto.response;
 
-import com.api.grade_manager.entity.GradeEntity;
-
 import java.util.List;
 
 public class CourseResponse {
 
+    private Long id;
     private String name;
-    private Double nota1Bim;
-    private Double nota2Bim;
+    private List<GradeResponse> gradeResponses;
 
-    public CourseResponse(String name, Double nota1Bim, Double nota2Bim) {
+    public CourseResponse(Long id, String name, List<GradeResponse> gradeResponses) {
+        this.id = id;
         this.name = name;
-        this.nota1Bim = nota1Bim;
-        this.nota2Bim = nota2Bim;
+        this.gradeResponses = gradeResponses;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -24,19 +30,11 @@ public class CourseResponse {
         this.name = name;
     }
 
-    public Double getNota1Bim() {
-        return nota1Bim;
+    public List<GradeResponse> getGradeResponses() {
+        return gradeResponses;
     }
 
-    public void setNota1Bim(Double nota1Bim) {
-        this.nota1Bim = nota1Bim;
-    }
-
-    public Double getNota2Bim() {
-        return nota2Bim;
-    }
-
-    public void setNota2Bim(Double nota2Bim) {
-        this.nota2Bim = nota2Bim;
+    public void setGradeResponses(List<GradeResponse> gradeResponses) {
+        this.gradeResponses = gradeResponses;
     }
 }

@@ -59,7 +59,7 @@ public class SemesterService {
 
     public List<SemesterResponse> getSemesterList(Long gmId){
 
-        return database.findAllByGmId(gmId).stream().map(semester -> new SemesterResponse(semester.getNome())).toList();
+        return database.findAllByGmId(gmId).stream().map(semester -> new SemesterResponse(semester.getNome(), semester.getId())).toList();
     }
 
     // Métodos Internos

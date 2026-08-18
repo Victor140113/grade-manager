@@ -64,7 +64,7 @@ public class GradeUpdateService {
 
     public List<GradeUpdateResponse> getGUList(Long gradeId){
 
-        return database.findAllByGradeId(gradeId).stream().map(gradeUpdate -> new GradeUpdateResponse(gradeUpdate.getDescription(), gradeUpdate.getValue())).toList();
+        return database.findAllByGradeId(gradeId).stream().map(gradeUpdate -> new GradeUpdateResponse(gradeUpdate.getId(), gradeUpdate.getDescription(), gradeUpdate.getValue(), gradeUpdate.getGrade().getId())).toList();
     }
 
     public PutGUResponse putGradeUpdate(PutGURequest data, Long guId, Long gradeId){

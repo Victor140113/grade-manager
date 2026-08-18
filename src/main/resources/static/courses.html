@@ -14,7 +14,7 @@
             <strong>Grade Manager</strong></div>
         <nav class="nav">
             <div class="nav-title">Navegação</div>
-            <a href="index.html">⌂ Dashboard</a><a href="managers.html">▦ Gerenciadores</a><a href="semesters.html">◫
+            <a href="index.html">⌂ Dashboard</a><a href="managers.html">▦ Grades de Notas</a><a href="semesters.html">◫
             Semestres</a><a class="active" href="courses.html">▤ Matérias</a><a href="api.html">◇ API / Endpoints</a>
         </nav>
         <div class="userbox">
@@ -28,85 +28,13 @@
         </div>
         <header class="top">
             <div>
-                <div class="eyebrow">Semestre #1</div>
+                <div class="eyebrow"></div>
                 <h1>Matérias</h1>
                 <p class="subtitle">Cada matéria possui duas Grades e cada Grade pode ter atualizações.</p></div>
             <button class="btn primary">+ Nova matéria</button>
         </header>
-        <section class="grid grid-2">
-            <article class="card item-card">
-                <div class="item-head">
-                    <div class="icon">MA</div>
-                    <div class="item-main"><h2>Matemática</h2>
-                        <p>Course #10</p></div>
-                    <button class="btn">•••</button>
-                </div>
-                <div class="grade-grid">
-                    <div class="grade"><small>1º Bimestre</small><strong>8,5</strong><span
-                            class="badge green">3 updates</span></div>
-                    <div class="grade"><small>2º Bimestre</small><strong>7,0</strong><span
-                            class="badge green">2 updates</span></div>
-                </div>
-                <details class="section">
-                    <summary>Ver atualizações</summary>
-                    <div class="update">
-                        <div class="update-main"><strong>Prova</strong><small>Grade 1 · revisão</small></div>
-                        <span class="update-value">+5,0</span>
-                        <button class="btn danger">Excluir</button>
-                    </div>
-                    <div class="update">
-                        <div class="update-main"><strong>Trabalho</strong><small>Grade 1</small></div>
-                        <span class="update-value">+3,5</span>
-                        <button class="btn danger">Excluir</button>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn primary">+ Atualizar nota</button>
-                    </div>
-                </details>
-            </article>
-            <article class="card item-card">
-                <div class="item-head">
-                    <div class="icon">PR</div>
-                    <div class="item-main"><h2>Programação</h2>
-                        <p>Course #11</p></div>
-                    <button class="btn">•••</button>
-                </div>
-                <div class="grade-grid">
-                    <div class="grade"><small>1º Bimestre</small><strong>9,2</strong><span
-                            class="badge green">2 updates</span></div>
-                    <div class="grade"><small>2º Bimestre</small><strong>8,8</strong><span
-                            class="badge green">3 updates</span></div>
-                </div>
-                <details class="section">
-                    <summary>Ver atualizações</summary>
-                    <div class="update">
-                        <div class="update-main"><strong>Projeto API</strong><small>Grade 1</small></div>
-                        <span class="update-value">+7,0</span>
-                        <button class="btn danger">Excluir</button>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn primary">+ Atualizar nota</button>
-                    </div>
-                </details>
-            </article>
-            <article class="card item-card">
-                <div class="item-head">
-                    <div class="icon">BD</div>
-                    <div class="item-main"><h2>Banco de Dados</h2>
-                        <p>Course #12</p></div>
-                    <button class="btn">•••</button>
-                </div>
-                <div class="grade-grid">
-                    <div class="grade"><small>1º Bimestre</small><strong>7,8</strong><span
-                            class="badge green">2 updates</span></div>
-                    <div class="grade"><small>2º Bimestre</small><strong>—</strong><span
-                            class="badge">Sem updates</span></div>
-                </div>
-                <details class="section">
-                    <summary>Ver atualizações</summary>
-                    <div class="empty">Nenhuma atualização para mostrar.</div>
-                </details>
-            </article>
+        <section class="grid grid-2" id="grid-cards">
+
         </section>
         <section class="section card item-card">
             <div class="section-head">
@@ -125,5 +53,7 @@
         </section>
     </main>
 </div>
+
+<script src="js/courses.js"></script>
 </body>
 </html>

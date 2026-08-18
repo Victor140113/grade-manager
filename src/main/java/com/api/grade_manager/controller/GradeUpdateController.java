@@ -56,6 +56,7 @@ public class GradeUpdateController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @GetMapping("/grade-manager/semester/course/grade/{gradeId}/grade-update")
     public ResponseEntity<List<GradeUpdateResponse>> getGUList(@PathVariable Long gradeId){
 

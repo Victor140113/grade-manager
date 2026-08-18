@@ -46,6 +46,7 @@ public class SemesterController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @GetMapping("/grade-manager/{gmId}/semester")
     public ResponseEntity<List<SemesterResponse>> getSemesterList(@PathVariable Long gmId){
 
