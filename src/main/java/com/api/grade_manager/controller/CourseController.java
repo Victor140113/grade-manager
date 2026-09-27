@@ -21,6 +21,7 @@ public class CourseController {
         this.service = service;
     }
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @PostMapping("/grade-manager/semester/{semesterId}/course")
     public ResponseEntity<CreateCourseResponse> createCourse(@RequestBody CreateCourseRequest data, @PathVariable Long semesterId){
 

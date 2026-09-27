@@ -34,7 +34,7 @@ public class SemesterService {
         if (gm == null) throw new GMNotFoundException(" Grade Manager não encontrado!");
 
         SemesterEntity semester = new SemesterEntity();
-        semester.setNome(data.getNome().trim());
+        semester.setNome(data.getName().trim());
         semester.setGm(gm);
         gm.getSemestre().add(semester);
 
@@ -59,7 +59,7 @@ public class SemesterService {
 
     public List<SemesterResponse> getSemesterList(Long gmId){
 
-        return database.findAllByGmId(gmId).stream().map(semester -> new SemesterResponse(semester.getNome(), semester.getId())).toList();
+        return database.findAllByGmId(gmId).stream().map(semester -> new SemesterResponse(semester.getNome(), semester.getId(), semester.getCourse().size())).toList();
     }
 
     // Métodos Internos

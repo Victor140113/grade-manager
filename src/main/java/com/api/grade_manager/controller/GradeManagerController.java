@@ -4,6 +4,7 @@ import com.api.grade_manager.dto.request.CreateGMRequest;
 import com.api.grade_manager.dto.response.CreateGMResponse;
 import com.api.grade_manager.dto.response.GradeManagerResponse;
 import com.api.grade_manager.exception.GMNotFoundException;
+import com.api.grade_manager.exception.InputIsEmptyException;
 import com.api.grade_manager.service.GradeManagerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,12 @@ public class GradeManagerController {
     @PostMapping("/grade-manager")
     public ResponseEntity<CreateGMResponse> createGM(@RequestBody CreateGMRequest data){
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.createGM(data));
+        try{
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.createGM(data));
+        }catch (InputIsEmptyException e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
     }
 
     @DeleteMapping("/grade-manager/{gmId}")

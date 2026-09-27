@@ -14,15 +14,14 @@
             <strong>Grade Manager</strong></div>
         <nav class="nav">
             <div class="nav-title">Navegação</div>
-            <a href="index.html">⌂ Dashboard</a><a href="managers.html">▦ Grades de Notas</a><a class="active"
-                                                                                              href="semesters.html">◫
-            Semestres</a><a href="courses.html">▤ Matérias</a><a href="api.html">◇ API / Endpoints</a></nav>
+            <a href="index.html">⌂ Dashboard</a><a href="managers.html" class="active">▦ Grades de Notas</a><a href="api.html">◇ API / Endpoints</a></nav>
         <div class="userbox">
             <div class="avatar">V</div>
             <div><strong>Victor</strong><small>Desenvolvedor</small></div>
         </div>
     </aside>
     <main class="main">
+        <a href="managers.html" class="btn" id="btn-back">← Voltar</a>
         <div class="breadcrumb">
             <a href="managers.html">Grades de Notas</a> / Faculdade
         </div>
@@ -30,8 +29,9 @@
             <div>
                 <div class="eyebrow">Grade Manager #1</div>
                 <h1>Semestres</h1>
-                <p class="subtitle">Selecione um semestre para abrir as matérias.</p></div>
-            <button class="btn primary">+ Novo semestre</button>
+                <p class="subtitle">Selecione um semestre para abrir as matérias com suas notas.</p>
+            </div>
+            <button class="btn primary" id="modal-open">+ Novo semestre</button>
         </header>
         <section class="grid grid-3" id="grid-cards-semester">
 
@@ -45,10 +45,52 @@
                 <div><code>/grade-manager/{gmId}/semester</code><small>Ex.: /grade-manager/1/semester</small></div>
             </div>
             <div class="endpoint"><span class="method POST">POST</span>
-                <div><code>/grade-manager/{gmId}/semester</code><small>Body: { "nome": "4º Semestre" }</small></div>
+                <div><code>/grade-manager/{gmId}/semester</code><small>Body: { "name": "4º Semestre" }</small></div>
             </div>
         </section>
     </main>
+
+    <!-- ----------- Modal ----------- -->
+
+    <div class="modal-overlay hidden" id="modal">
+        <div class="modal">
+
+            <div class="modal-header">
+                <div>
+                    <div class="eyebrow">Novo registro</div>
+                    <h2 id="modal-title">Novo Semestre</h2>
+                </div>
+
+                <button class="modal-close" id="modal-close">×</button>
+            </div>
+
+            <form id="modal-form">
+
+                <div class="form-group">
+                    <label for="modal-input" id="modal-label">Nome</label>
+                    <input
+                            type="text"
+                            id="modal-input"
+                            name="name"
+                            placeholder="Digite o name"
+                            required
+                    >
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn" id="modal-cancel">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn primary" id="model-create">
+                        Criar
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
 </div>
 
 <script src="js/semesters.js"></script>

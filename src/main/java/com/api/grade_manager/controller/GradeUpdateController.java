@@ -26,6 +26,7 @@ public class GradeUpdateController {
         this.service = service;
     }
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @PostMapping("/grade-manager/semester/course/grade/{gradeId}/grade-update")
     public ResponseEntity<CreateGUResponse> createGradeUpdate(@RequestBody CreateGURequest data, @PathVariable Long gradeId){
 

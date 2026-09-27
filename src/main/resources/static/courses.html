@@ -14,8 +14,8 @@
             <strong>Grade Manager</strong></div>
         <nav class="nav">
             <div class="nav-title">Navegação</div>
-            <a href="index.html">⌂ Dashboard</a><a href="managers.html">▦ Grades de Notas</a><a href="semesters.html">◫
-            Semestres</a><a class="active" href="courses.html">▤ Matérias</a><a href="api.html">◇ API / Endpoints</a>
+            <a href="index.html">⌂ Dashboard</a><a href="managers.html" class="active">▦ Grades de Notas</a>
+            <a href="api.html">◇ API / Endpoints</a>
         </nav>
         <div class="userbox">
             <div class="avatar">V</div>
@@ -23,6 +23,7 @@
         </div>
     </aside>
     <main class="main">
+        <a class="btn" id="btn-back">← Voltar</a>
         <div class="breadcrumb"><a href="managers.html">Faculdade</a> / <a href="semesters.html">1º Semestre</a> /
             Matérias
         </div>
@@ -31,7 +32,7 @@
                 <div class="eyebrow"></div>
                 <h1>Matérias</h1>
                 <p class="subtitle">Cada matéria possui duas Grades e cada Grade pode ter atualizações.</p></div>
-            <button class="btn primary">+ Nova matéria</button>
+            <button class="btn primary" id="modal-open">+ Nova matéria</button>
         </header>
         <section class="grid grid-2" id="grid-cards">
 
@@ -52,6 +53,59 @@
             </div>
         </section>
     </main>
+
+    <!-- ----------- Modal ----------- -->
+
+    <div class="modal-overlay hidden" id="modal">
+        <div class="modal">
+
+            <div class="modal-header">
+                <div>
+                    <div class="eyebrow">Novo registro</div>
+                    <h2 id="modal-title">Nova Matéria</h2>
+                </div>
+
+                <button class="modal-close" id="modal-close">×</button>
+            </div>
+
+            <form id="modal-form" data-type="" data-id="">
+
+                <div class="form-group">
+                    <label for="modal-input" id="modal-label">Nome</label>
+                    <input
+                            type="text"
+                            id="modal-input"
+                            name="name"
+                            placeholder="Digite o nome"
+                            required
+                    >
+                </div>
+
+                <div class="form-group hidden" id="modal-value-group">
+                    <label for="modal-value">Valor</label>
+                    <input
+                            type="number"
+                            id="modal-value"
+                            name="value"
+                            placeholder="Digite o valor"
+                            step="0.1"
+                    >
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn" id="modal-cancel">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn primary" id="modal-create">
+                        Criar
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
 </div>
 
 <script src="js/courses.js"></script>

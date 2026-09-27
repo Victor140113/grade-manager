@@ -5,6 +5,7 @@ import com.api.grade_manager.dto.response.CreateGMResponse;
 import com.api.grade_manager.dto.response.GradeManagerResponse;
 import com.api.grade_manager.entity.GradeManagerEntity;
 import com.api.grade_manager.exception.GMNotFoundException;
+import com.api.grade_manager.exception.InputIsEmptyException;
 import com.api.grade_manager.repository.GradeManagerRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,12 @@ public class GradeManagerService {
     // Criar Gerenciador de Notas
     public CreateGMResponse createGM(CreateGMRequest data){
 
+        if(data.getName().trim().isEmpty()){
+            throw new InputIsEmptyException("Entrada Vazia.");
+        }
+
         GradeManagerEntity gm = new GradeManagerEntity();
-        gm.setNome(data.getNome());
+        gm.setNome(data.getName());
         database.save(gm);
 
         return new CreateGMResponse(gm.getNome().trim());

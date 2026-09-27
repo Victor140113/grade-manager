@@ -10,6 +10,9 @@ public class CreateGURequest {
         this.value = value;
     }
 
+    public CreateGURequest() {
+    }
+
     public String getDescription() {
         return description;
     }

@@ -2,20 +2,20 @@ package com.api.grade_manager.dto.request;
 
 public class CreateGMRequest {
 
-    private String nome;
+    private String name;
 
     public CreateGMRequest() {
     }
 
-    public CreateGMRequest(String nome) {
-        this.nome = nome;
+    public CreateGMRequest(String name) {
+        this.name = name;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 }

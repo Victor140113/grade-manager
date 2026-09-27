@@ -1,5 +1,4 @@
 const gridPai = document.getElementById("grid-cards");
-console.log(gridPai);
 
 const parameter = new URLSearchParams(window.location.search);
 
@@ -9,7 +8,105 @@ const semesterId = parameter.get("semester-id");
 const eyebrow = document.querySelector(".eyebrow");
 eyebrow.textContent = semesterName;
 
-    // Gera updates com elementos do banco para seus determinados bimestres
+// --------------------- POST Form --------------------
+
+const form = document.getElementById("modal-form");
+const inputData = document.getElementById("modal-input");
+const inputValue = document.getElementById("modal-value");
+const valueGroup = document.getElementById("modal-value-group");
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const type = form.dataset.type;
+    const id = form.dataset.id;
+
+    let url;
+    let body;
+
+    if (type === "course") {
+
+        url = `http://localhost:8080/grade-manager/semester/${id}/course`;
+
+        body = {
+            name: inputData.value.trim()
+        };
+
+    } else if (type === "grade-update") {
+
+        url = `http://localhost:8080/grade-manager/semester/course/grade/${id}/grade-update`;
+
+        body = {
+            description: inputData.value.trim(),
+            value: Number(inputValue.value)
+        };
+    }
+
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (response.ok) {
+        window.location.reload();
+    }
+});
+
+// -------------------------------------------------------------
+
+// ------------------------ Botão Voltar Modal -------------------------
+
+const backBtn = document.getElementById("btn-back");
+
+backBtn.addEventListener("click", () => {
+    history.back();
+});
+
+// ---------------------------------------------------------------------
+
+// --------------------- Modal Config --------------------
+
+const btnOpenModalCourse = document.getElementById("modal-open");
+const modal = document.getElementById("modal");
+const btnCreate = document.getElementById("modal-create");
+const btnCancel = document.getElementById("modal-cancel");
+const btnCloseModal = document.getElementById("modal-close");
+
+btnCloseModal.addEventListener("click", () => {
+    modal.classList.add("hidden");
+});
+
+btnOpenModalCourse.addEventListener("click", () => {
+
+    form.dataset.type = "course";
+    form.dataset.id = semesterId;
+
+    modal.querySelector("#modal-title").textContent = "Nova Matéria";
+    modal.querySelector("#modal-label").textContent = "Nome";
+
+    inputData.placeholder = "Digite o nome";
+
+    valueGroup.classList.add("hidden");
+    inputValue.required = false;
+
+    modal.classList.remove("hidden");
+});
+
+btnCreate.addEventListener("click", () => {
+    modal.classList.remove("hidden");
+});
+
+btnCancel.addEventListener("click", () => {
+    modal.classList.add("hidden");
+});
+
+
+// ------------------------------ Gera Card Updates ------------------------------
+
 function gerarUpdates(gradeUpdates, pai) {
 
     for (const gu of gradeUpdates) {
@@ -22,25 +119,54 @@ function gerarUpdates(gradeUpdates, pai) {
             </div>
             <span class="update-value">+${String(gu.value).replace(".", ",")}</span>
             <button class="btn danger" data-grade-id="${gu.gradeId}">Excluir</button>`;
+
         pai.appendChild(guHtml);
     }
 }
+
+// --------------------------------------------------------------------------
+
+
+// ------------------------------- Post Updates -------------------------------
+
+function postUpdate(btns) {
+
+    for (const btn of btns) {
+        console.log("Botão clicado:", btn);
+        console.log("Grade ID:", btn.dataset.gradeId);
+
+        btn.addEventListener("click", e => {
+
+            form.dataset.type = "grade-update";
+            form.dataset.id = btn.dataset.gradeId;
+
+            modal.querySelector("#modal-title").textContent = "Nova Nota";
+            modal.querySelector("#modal-label").textContent = "Descrição";
+
+            inputData.placeholder = "Digite a descrição";
+
+            valueGroup.classList.remove("hidden");
+            inputValue.required = true;
+
+            modal.classList.remove("hidden");
+
+        });
+    }
+}
+
+// ----------------------------------------------------------------------------
+
 
 // Gera cards com dados vindos do banco
 async function gerarCards() {
 
     const response = await fetch(`http://localhost:8080/grade-manager/semester/${semesterId}/course`);
-    console.log(response);
-
     const json = await response.json();
-    console.log(json);
 
     for (const obj of json) {
 
         const card = document.createElement("article");
-        // console.log(card);
         card.classList.add("card", "item-card");
-        console.log(card);
 
         card.innerHTML = `
                 <div class="item-head">
@@ -49,10 +175,21 @@ async function gerarCards() {
                         <p>Course #11</p></div>
                     <button class="btn">•••</button>
                 </div>
+
                 <div class="grade-grid">
-                    <div class="grade"><small>1º Bimestre</small><strong>${obj.gradeResponses[0].value == null ? "—" : String(obj.gradeResponses[0].value).replace(".", ",")}</strong><span class="badge green">${obj.gradeResponses[0].gradeUpdates.length} updates</span></div>
-                    <div class="grade"><small>2º Bimestre</small><strong>${obj.gradeResponses[1].value == null ? "—" : String(obj.gradeResponses[1].value).replace(".", ",")}</strong><span class="badge green">${obj.gradeResponses[1].gradeUpdates.length} updates</span></div>
+                    <div class="grade">
+                        <small>1º Bimestre</small>
+                        <strong>${obj.gradeResponses[0].value == null ? "—" : String(obj.gradeResponses[0].value.toFixed(2)).replace(".", ",")}</strong>
+                        <span class="badge green">${obj.gradeResponses[0].gradeUpdates.length} updates</span>
+                    </div>
+
+                    <div class="grade">
+                        <small>2º Bimestre</small>
+                        <strong>${obj.gradeResponses[1].value == null ? "—" : String(obj.gradeResponses[1].value.toFixed(2)).replace(".", ",")}</strong>
+                        <span class="badge green">${obj.gradeResponses[1].gradeUpdates.length} updates</span>
+                    </div>
                 </div>
+
                 <details class="section">
                     <summary>Ver atualizações</summary>
 
@@ -61,31 +198,46 @@ async function gerarCards() {
                         <div class="section-head">
                             <h3>1º Bimestre</h3>
                         </div>
-                        
+
                         <div class="grade-updates-1b"></div>
-                
+
                         <div class="card-footer">
-                            <button class="btn primary">+ Atualizar nota</button>
+                            <button class="btn primary open-gu-modal"
+                                    data-grade-id="${obj.gradeResponses[0].id}">
+                                + Atualizar nota
+                            </button>
                         </div>
                     </div>
-                
+
                     <!-- 2º Bimestre -->
                     <div class="section">
                         <div class="section-head">
                             <h3>2º Bimestre</h3>
                         </div>
-                
+
                         <div class="grade-updates-2b"></div>
-                
+
                         <div class="card-footer">
-                            <button class="btn primary">+ Atualizar nota</button>
+                            <button class="btn primary open-gu-modal"
+                                    data-grade-id="${obj.gradeResponses[1].id}">
+                                + Atualizar nota
+                            </button>
                         </div>
                     </div>
                 </details>
-            `
+            `;
 
-        gerarUpdates(obj.gradeResponses[0].gradeUpdates, card.querySelector(".grade-updates-1b"));
-        gerarUpdates(obj.gradeResponses[1].gradeUpdates, card.querySelector(".grade-updates-2b"));
+        gerarUpdates(
+            obj.gradeResponses[0].gradeUpdates,
+            card.querySelector(".grade-updates-1b")
+        );
+
+        gerarUpdates(
+            obj.gradeResponses[1].gradeUpdates,
+            card.querySelector(".grade-updates-2b")
+        );
+
+        postUpdate(card.querySelectorAll(".open-gu-modal"));
 
         gridPai.appendChild(card);
     }

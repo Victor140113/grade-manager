@@ -13,7 +13,6 @@ import com.api.grade_manager.exception.SemesterNotFoundException;
 import com.api.grade_manager.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,7 +36,7 @@ public class CourseService {
         if (semester == null) throw new SemesterNotFoundException(" Semestre não encontrado!");
 
         CourseEntity course = new CourseEntity();
-        course.setNome(data.getNome());
+        course.setNome(data.getName());
         course.getGrades().add(new GradeEntity(null, 1));
         course.getGrades().add(new GradeEntity(null, 2));
         course.setSemester(semester);

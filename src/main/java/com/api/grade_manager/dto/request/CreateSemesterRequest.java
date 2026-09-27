@@ -2,20 +2,20 @@ package com.api.grade_manager.dto.request;
 
 public class CreateSemesterRequest {
 
-    private String nome;
+    private String name;
 
     public CreateSemesterRequest() {
     }
 
-    public CreateSemesterRequest(String nome) {
-        this.nome = nome;
+    public CreateSemesterRequest(String name) {
+        this.name = name;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 }
