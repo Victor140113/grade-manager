@@ -68,7 +68,7 @@ backBtn.addEventListener("click", () => {
 
 // ---------------------------------------------------------------------
 
-// --------------------- Modal Config --------------------
+// ---------------------------- Modal Config ---------------------------
 
 const btnOpenModalCourse = document.getElementById("modal-open");
 const modal = document.getElementById("modal");
@@ -156,10 +156,9 @@ function postUpdate(btns) {
 // ----------------------------------------------------------------------------
 
 
-
 // --------------------------- Delete Grade Update ----------------------------
 
-function deleteGradeUpdate(){
+function handleDelete(){
 
 
     gridPai.addEventListener("click", async (e) =>{
@@ -171,8 +170,17 @@ function deleteGradeUpdate(){
            const gradeId = e.target.dataset.gradeId;
 
            const response = await fetch(`http://localhost:8080/grade-manager/semester/course/grade/${gradeId}/grade-update/${guId}`, {method: "DELETE"});
-           console.log(response);
 
+           if(response.ok) document.location.reload();
+
+       }
+
+       if(e.target.classList.contains("delete-course")){
+
+           const semesterId = e.target.dataset.semesterId;
+           const courseId = e.target.dataset.courseId;
+
+           const response = await fetch(`http://localhost:8080/grade-manager/semester/${semesterId}/course/${courseId}`, {method: "DELETE"});
            if(response.ok) document.location.reload();
 
        }
@@ -185,14 +193,11 @@ function deleteGradeUpdate(){
 // ----------------------------------------------------------------------------
 
 
-
 // Gera cards com dados vindos do banco
 async function gerarCards() {
 
     const response = await fetch(`http://localhost:8080/grade-manager/semester/${semesterId}/course`);
     const json = await response.json();
-
-    //console.log(json);
 
     for (const obj of json) {
 
@@ -203,8 +208,9 @@ async function gerarCards() {
                 <div class="item-head">
                     <div class="icon">${String(obj.name).charAt(0).toUpperCase()}</div>
                     <div class="item-main"><h2>${obj.name}</h2>
-                        <p>Course #11</p></div>
-                    <button class="btn">•••</button>
+                        <p>Course #11</p>
+                    </div>
+                    <button class="btn danger delete-course" data-course-id="${obj.id}" data-semester-id="${obj.semesterId}">Excluir</button>
                 </div>
 
                 <div class="grade-grid">
@@ -275,4 +281,4 @@ async function gerarCards() {
 }
 
 gerarCards();
-deleteGradeUpdate();
+handleDelete();

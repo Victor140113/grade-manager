@@ -34,6 +34,7 @@ public class CourseController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @DeleteMapping("/grade-manager/semester/{semesterId}/course/{courseId}")
     public ResponseEntity<?> deleteCourse(@PathVariable Long courseId, @PathVariable Long semesterId){
 

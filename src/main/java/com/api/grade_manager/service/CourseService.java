@@ -80,6 +80,7 @@ public class CourseService {
                                                 .toList()
                                 ))
                                 .toList()
+                        , course.getSemester().getId()
                 ))
                 .toList();
 
