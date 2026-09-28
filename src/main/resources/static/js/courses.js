@@ -210,13 +210,13 @@ async function gerarCards() {
                 <div class="grade-grid">
                     <div class="grade">
                         <small>1º Bimestre</small>
-                        <strong>${obj.gradeResponses[0].value == null ? "—" : String(obj.gradeResponses[0].value.toFixed(2)).replace(".", ",")}</strong>
+                        <strong>${obj.gradeResponses[0].value == null || obj.gradeResponses[0].value <=0 ? "—" : String(obj.gradeResponses[0].value.toFixed(2)).replace(".", ",")}</strong>
                         <span class="badge green">${obj.gradeResponses[0].gradeUpdates.length} updates</span>
                     </div>
 
                     <div class="grade">
                         <small>2º Bimestre</small>
-                        <strong>${obj.gradeResponses[1].value == null ? "—" : String(obj.gradeResponses[1].value.toFixed(2)).replace(".", ",")}</strong>
+                        <strong>${obj.gradeResponses[1].value == null || obj.gradeResponses[1].value <= 0? "—" : String(obj.gradeResponses[1].value.toFixed(2)).replace(".", ",")}</strong>
                         <span class="badge green">${obj.gradeResponses[1].gradeUpdates.length} updates</span>
                     </div>
                 </div>
