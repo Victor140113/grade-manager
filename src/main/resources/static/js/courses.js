@@ -104,8 +104,9 @@ btnCancel.addEventListener("click", () => {
     modal.classList.add("hidden");
 });
 
+// --------------------------------------------------------------------------
 
-// ------------------------------ Gera Card Updates ------------------------------
+// --------------------------- Gera Card Updates ----------------------------
 
 function gerarUpdates(gradeUpdates, pai) {
 
@@ -118,7 +119,7 @@ function gerarUpdates(gradeUpdates, pai) {
                 <strong>${gu.description}</strong>
             </div>
             <span class="update-value">+${String(gu.value).replace(".", ",")}</span>
-            <button class="btn danger" data-grade-id="${gu.gradeId}">Excluir</button>`;
+            <button class="btn danger delete-grade-update" data-grade-id="${gu.gradeId}" data-grade-update-id="${gu.id}">Excluir</button>`;
 
         pai.appendChild(guHtml);
     }
@@ -127,13 +128,11 @@ function gerarUpdates(gradeUpdates, pai) {
 // --------------------------------------------------------------------------
 
 
-// ------------------------------- Post Updates -------------------------------
+// ------------------------------ Post Updates ------------------------------
 
 function postUpdate(btns) {
 
     for (const btn of btns) {
-        console.log("Botão clicado:", btn);
-        console.log("Grade ID:", btn.dataset.gradeId);
 
         btn.addEventListener("click", e => {
 
@@ -157,11 +156,43 @@ function postUpdate(btns) {
 // ----------------------------------------------------------------------------
 
 
+
+// --------------------------- Delete Grade Update ----------------------------
+
+function deleteGradeUpdate(){
+
+
+    gridPai.addEventListener("click", async (e) =>{
+
+
+       if(e.target.classList.contains("delete-grade-update")){
+
+           const guId = e.target.dataset.gradeUpdateId;
+           const gradeId = e.target.dataset.gradeId;
+
+           const response = await fetch(`http://localhost:8080/grade-manager/semester/course/grade/${gradeId}/grade-update/${guId}`, {method: "DELETE"});
+           console.log(response);
+
+           if(response.ok) document.location.reload();
+
+       }
+
+    });
+
+
+}
+
+// ----------------------------------------------------------------------------
+
+
+
 // Gera cards com dados vindos do banco
 async function gerarCards() {
 
     const response = await fetch(`http://localhost:8080/grade-manager/semester/${semesterId}/course`);
     const json = await response.json();
+
+    //console.log(json);
 
     for (const obj of json) {
 
@@ -229,12 +260,12 @@ async function gerarCards() {
 
         gerarUpdates(
             obj.gradeResponses[0].gradeUpdates,
-            card.querySelector(".grade-updates-1b")
+            card.querySelector(".grade-updates-1b"),
         );
 
         gerarUpdates(
             obj.gradeResponses[1].gradeUpdates,
-            card.querySelector(".grade-updates-2b")
+            card.querySelector(".grade-updates-2b"),
         );
 
         postUpdate(card.querySelectorAll(".open-gu-modal"));
@@ -244,3 +275,4 @@ async function gerarCards() {
 }
 
 gerarCards();
+deleteGradeUpdate();

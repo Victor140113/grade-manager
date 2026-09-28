@@ -39,6 +39,7 @@ public class GradeUpdateController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @DeleteMapping("/grade-manager/semester/course/grade/{gradeId}/grade-update/{guId}")
     public ResponseEntity<?> deleteGradeUpdate(@PathVariable Long gradeId, @PathVariable Long guId){
 

@@ -10,7 +10,7 @@ const btnCloseModal = document.getElementById("modal-close");
 
 btnCloseModal.addEventListener("click", () => {
     modal.classList.add("hidden");
-})
+});
 
 btnOpenModal.addEventListener("click", () => {
     modal.classList.remove("hidden");

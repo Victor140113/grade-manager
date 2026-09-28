@@ -76,7 +76,7 @@ async function gerarCards() {
                     </div>
                 </div>
                 <div class="meta">
-                    <span class="badge cyan">${obj.courseQuantity} matérias</span>
+                    <span class="badge cyan">${obj.courseQuantity} matéria${obj.courseQuantity > 1 ? "s":""}</span>
                 </div>
                 <div class="card-footer">
                     <a class="btn primary" href="courses.html?semester-id=${obj.id}&semester-name=${obj.name}">Abrir semestre</a>
