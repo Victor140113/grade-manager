@@ -54,6 +54,24 @@ formSemester.addEventListener("submit", async (e) =>{
 
 // -------------------------------------------------------------
 
+// ----------------------- DELETE Semester ---------------------
+
+function deleteSemester(){
+
+    grid.addEventListener("click", async (e) =>{
+
+        if(e.target.classList.contains("delete-semester")){
+
+            const semesterId = e.target.dataset.semesterId;
+            const response = await fetch(`http://localhost:8080/grade-manager/${gmId}/semester/${semesterId}`, {method: "DELETE"});
+
+            if(response.ok) document.location.reload();
+        }
+    });
+}
+
+// -------------------------------------------------------------
+
 
 // --------------------------- Cards ---------------------------
 async function gerarCards() {
@@ -80,7 +98,7 @@ async function gerarCards() {
                 </div>
                 <div class="card-footer">
                     <a class="btn primary" href="courses.html?semester-id=${obj.id}&semester-name=${obj.name}">Abrir semestre</a>
-                    <button class="btn danger">Excluir</button>
+                    <button class="btn danger delete-semester" data-semester-id="${obj.id}">Excluir</button>
                 </div>
         `
         grid.appendChild(card);
@@ -89,5 +107,5 @@ async function gerarCards() {
 }
 
 gerarCards();
-
+deleteSemester();
 // -------------------------------------------------------------
