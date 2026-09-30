@@ -33,6 +33,7 @@ public class GradeManagerController {
 
     }
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @DeleteMapping("/grade-manager/{gmId}")
     public ResponseEntity<?> deleteGM(@PathVariable Long gmId){
 

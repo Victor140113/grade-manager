@@ -31,7 +31,7 @@ btnCancel.addEventListener("click", () => {
 const formGM = document.getElementById("modal-form");
 const inputNameGM = document.getElementById("modal-input");
 
-formGM.addEventListener("submit", async (e) =>{
+formGM.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
@@ -40,20 +40,42 @@ formGM.addEventListener("submit", async (e) =>{
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             name: inputNameGM.value.trim()
-        })});
+        })
+    });
 
-    if(response.ok) window.location.reload();
+    if (response.ok) window.location.reload();
 
 });
 
 // -------------------------------------------------------------
 
-async function gerarCards(){
+// --------------------- DELETE Grade Manager --------------------
+
+function deleteGradeManager(){
+
+    grid.addEventListener("click", async (e)=>{
+
+        if(e.target.classList.contains("delete-grade-manager")){
+
+            const gmId = e.target.dataset.gradeManagerId;
+            const response = await fetch(`http://localhost:8080/grade-manager/${gmId}`, {method: "DELETE"});
+
+            if(response.ok) window.location.reload();
+
+        }
+
+    })
+}
+
+// -------------------------------------------------------------
+
+
+async function gerarCards() {
 
     const response = await fetch("http://localhost:8080/grade-manager");
     const json = await response.json();
 
-    for (const obj of json){
+    for (const obj of json) {
 
         const card = document.createElement("article");
         card.classList.add("card", "item-card")
@@ -67,12 +89,12 @@ async function gerarCards(){
                 </div>
             </div>
             <div class="meta">
-                <span class="badge">${obj.semesterQuantity} semestre${obj.semesterQuantity > 1 ? "s":""}</span>
+                <span class="badge">${obj.semesterQuantity} semestre${obj.semesterQuantity > 1 ? "s" : ""}</span>
             </div>
             <div class="card-footer">
                 <a class="btn" href="semesters.html?id=${obj.id}&name=${obj.name}">Ver semestres</a>
                 <button class="btn">Editar</button>
-                <button class="btn danger">Excluir</button>
+                <button class="btn danger delete-grade-manager" data-grade-manager-id="${obj.id}">Excluir</button>
             </div>
         `
         grid.appendChild(card);
@@ -80,5 +102,5 @@ async function gerarCards(){
 }
 
 
-
 gerarCards();
+deleteGradeManager()

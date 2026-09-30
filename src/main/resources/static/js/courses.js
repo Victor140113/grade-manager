@@ -158,32 +158,32 @@ function postUpdate(btns) {
 
 // --------------------------- Delete Grade Update ----------------------------
 
-function handleDelete(){
+function handleDelete() {
 
 
-    gridPai.addEventListener("click", async (e) =>{
+    gridPai.addEventListener("click", async (e) => {
 
 
-       if(e.target.classList.contains("delete-grade-update")){
+        if (e.target.classList.contains("delete-grade-update")) {
 
-           const guId = e.target.dataset.gradeUpdateId;
-           const gradeId = e.target.dataset.gradeId;
+            const guId = e.target.dataset.gradeUpdateId;
+            const gradeId = e.target.dataset.gradeId;
 
-           const response = await fetch(`http://localhost:8080/grade-manager/semester/course/grade/${gradeId}/grade-update/${guId}`, {method: "DELETE"});
+            const response = await fetch(`http://localhost:8080/grade-manager/semester/course/grade/${gradeId}/grade-update/${guId}`, {method: "DELETE"});
 
-           if(response.ok) document.location.reload();
+            if (response.ok) document.location.reload();
 
-       }
+        }
 
-       if(e.target.classList.contains("delete-course")){
+        if (e.target.classList.contains("delete-course")) {
 
-           const semesterId = e.target.dataset.semesterId;
-           const courseId = e.target.dataset.courseId;
+            const semesterId = e.target.dataset.semesterId;
+            const courseId = e.target.dataset.courseId;
 
-           const response = await fetch(`http://localhost:8080/grade-manager/semester/${semesterId}/course/${courseId}`, {method: "DELETE"});
-           if(response.ok) document.location.reload();
+            const response = await fetch(`http://localhost:8080/grade-manager/semester/${semesterId}/course/${courseId}`, {method: "DELETE"});
+            if (response.ok) document.location.reload();
 
-       }
+        }
 
     });
 
@@ -216,13 +216,13 @@ async function gerarCards() {
                 <div class="grade-grid">
                     <div class="grade">
                         <small>1º Bimestre</small>
-                        <strong>${obj.gradeResponses[0].value == null || obj.gradeResponses[0].value <=0 ? "—" : String(obj.gradeResponses[0].value.toFixed(2)).replace(".", ",")}</strong>
+                        <strong>${obj.gradeResponses[0].value == null || obj.gradeResponses[0].value <= 0 ? "—" : String(obj.gradeResponses[0].value.toFixed(2)).replace(".", ",")}</strong>
                         <span class="badge green">${obj.gradeResponses[0].gradeUpdates.length} updates</span>
                     </div>
 
                     <div class="grade">
                         <small>2º Bimestre</small>
-                        <strong>${obj.gradeResponses[1].value == null || obj.gradeResponses[1].value <= 0? "—" : String(obj.gradeResponses[1].value.toFixed(2)).replace(".", ",")}</strong>
+                        <strong>${obj.gradeResponses[1].value == null || obj.gradeResponses[1].value <= 0 ? "—" : String(obj.gradeResponses[1].value.toFixed(2)).replace(".", ",")}</strong>
                         <span class="badge green">${obj.gradeResponses[1].gradeUpdates.length} updates</span>
                     </div>
                 </div>

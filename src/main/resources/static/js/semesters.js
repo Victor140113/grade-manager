@@ -37,7 +37,7 @@ btnCancel.addEventListener("click", () => {
 const formSemester = document.getElementById("modal-form");
 const inputNameSemester = document.getElementById("modal-input");
 
-formSemester.addEventListener("submit", async (e) =>{
+formSemester.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
@@ -46,9 +46,10 @@ formSemester.addEventListener("submit", async (e) =>{
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             name: inputNameSemester.value.trim()
-        })});
+        })
+    });
 
-    if(response.ok) window.location.reload();
+    if (response.ok) window.location.reload();
 
 });
 
@@ -56,16 +57,16 @@ formSemester.addEventListener("submit", async (e) =>{
 
 // ----------------------- DELETE Semester ---------------------
 
-function deleteSemester(){
+function deleteSemester() {
 
-    grid.addEventListener("click", async (e) =>{
+    grid.addEventListener("click", async (e) => {
 
-        if(e.target.classList.contains("delete-semester")){
+        if (e.target.classList.contains("delete-semester")) {
 
             const semesterId = e.target.dataset.semesterId;
             const response = await fetch(`http://localhost:8080/grade-manager/${gmId}/semester/${semesterId}`, {method: "DELETE"});
 
-            if(response.ok) document.location.reload();
+            if (response.ok) document.location.reload();
         }
     });
 }
@@ -94,7 +95,7 @@ async function gerarCards() {
                     </div>
                 </div>
                 <div class="meta">
-                    <span class="badge cyan">${obj.courseQuantity} matéria${obj.courseQuantity > 1 ? "s":""}</span>
+                    <span class="badge cyan">${obj.courseQuantity} matéria${obj.courseQuantity > 1 ? "s" : ""}</span>
                 </div>
                 <div class="card-footer">
                     <a class="btn primary" href="courses.html?semester-id=${obj.id}&semester-name=${obj.name}">Abrir semestre</a>
