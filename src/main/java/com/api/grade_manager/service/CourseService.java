@@ -79,8 +79,9 @@ public class CourseService {
                                                 ))
                                                 .toList()
                                 ))
-                                .toList()
-                        , course.getSemester().getId()
+                                .toList(),
+                        course.getSemester().getId(),
+                        (course.getGrades().get(0).getValue() + course.getGrades().get(1).getValue()) / 2
                 ))
                 .toList();
 

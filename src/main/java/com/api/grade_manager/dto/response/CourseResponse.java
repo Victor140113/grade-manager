@@ -8,12 +8,14 @@ public class CourseResponse {
     private String name;
     private List<GradeResponse> gradeResponses;
     private Long semesterId;
+    private Double avg;
 
-    public CourseResponse(Long id, String name, List<GradeResponse> gradeResponses, Long semesterId) {
+    public CourseResponse(Long id, String name, List<GradeResponse> gradeResponses, Long semesterId, Double avg) {
         this.id = id;
         this.name = name;
         this.gradeResponses = gradeResponses;
         this.semesterId = semesterId;
+        this.avg = avg;
     }
 
     public Long getId() {
@@ -46,5 +48,13 @@ public class CourseResponse {
 
     public void setSemesterId(Long semesterId) {
         this.semesterId = semesterId;
+    }
+
+    public Double getAvg() {
+        return avg;
+    }
+
+    public void setAvg(Double avg) {
+        this.avg = avg;
     }
 }

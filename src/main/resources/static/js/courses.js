@@ -199,6 +199,8 @@ async function gerarCards() {
     const response = await fetch(`http://localhost:8080/grade-manager/semester/${semesterId}/course`);
     const json = await response.json();
 
+    console.log(json);
+
     for (const obj of json) {
 
         const card = document.createElement("article");
@@ -225,6 +227,13 @@ async function gerarCards() {
                         <strong>${obj.gradeResponses[1].value == null || obj.gradeResponses[1].value <= 0 ? "—" : String(obj.gradeResponses[1].value.toFixed(2)).replace(".", ",")}</strong>
                         <span class="badge green">${obj.gradeResponses[1].gradeUpdates.length} updates</span>
                     </div>
+                    
+                    <div class="grade">
+                        <small>Média Semestral</small>
+                        <strong>${obj.avg == null || obj.avg <= 0 ? "—" : String(obj.avg.toFixed(2)).replace(".", ",")}</strong>
+                        <span class="badge green">${obj.gradeResponses[1].gradeUpdates.length} updates</span>
+                    </div>
+                    
                 </div>
 
                 <details class="section">
