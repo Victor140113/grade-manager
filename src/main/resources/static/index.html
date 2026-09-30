@@ -16,7 +16,6 @@
             <div class="nav-title">Navegação</div>
             <a class="active" href="index.html">⌂ Dashboard</a>
             <a href="managers.html">▦ Grades de Notas</a>
-            <a href="api.html">◇ API / Endpoints</a>
         </nav>
         <div class="userbox">
             <div class="avatar">V</div>
@@ -30,7 +29,6 @@
                 <h1>Olá, Victor 👋</h1>
                 <p class="subtitle">Uma visão rápida dos seus gerenciadores de notas.</p></div>
             <div class="actions">
-                <a class="btn" href="api.html">Ver API</a>
                 <a class="btn primary" href="managers.html">
                     Ver Grades de Notas</a>
             </div>
@@ -57,26 +55,27 @@
                 </div>
                 <strong>42</strong><span>de notas</span></div>
         </section>
-        <section class="hero section">
-            <div class="hero-row">
-                <div>
-                    <div class="eyebrow">Estrutura</div>
-                    <h2>O caminho dos dados</h2>
-                    <p class="subtitle">A interface vai consumir a hierarquia que você criou no backend.</p></div>
-            </div>
-            <div class="flow">
-                <span class="flow-item">Grade Manager</span><span class="flow-arrow">→</span>
-                <span class="flow-item">Semester</span><span class="flow-arrow">→</span>
-                <span class="flow-item">Course</span><span class="flow-arrow">→</span>
-                <span class="flow-item">Grade</span><span class="flow-arrow">→</span>
-                <span class="flow-item">Grade Update</span>
-            </div>
-        </section>
+<!--        <section class="hero section">-->
+<!--            <div class="hero-row">-->
+<!--                <div>-->
+<!--                    <div class="eyebrow">Estrutura</div>-->
+<!--                    <h2>O caminho dos dados</h2>-->
+<!--                    <p class="subtitle">A interface vai consumir a hierarquia que você criou no backend.</p></div>-->
+<!--            </div>-->
+<!--            <div class="flow">-->
+<!--                <span class="flow-item">Grade Manager</span><span class="flow-arrow">→</span>-->
+<!--                <span class="flow-item">Semester</span><span class="flow-arrow">→</span>-->
+<!--                <span class="flow-item">Course</span><span class="flow-arrow">→</span>-->
+<!--                <span class="flow-item">Grade</span><span class="flow-arrow">→</span>-->
+<!--                <span class="flow-item">Grade Update</span>-->
+<!--            </div>-->
+<!--        </section>-->
         <section class="section grid grid-2">
             <div class="card item-card">
                 <div class="section-head">
                     <div><h2>Gerenciadores recentes</h2>
-                        <p>Cards estáticos de exemplo.</p></div>
+                        <p>Aqui estão os mais recentes:</p>
+                    </div>
                     <a class="btn" href="managers.html">Ver todos</a></div>
                 <div class="grid grid-2">
                     <div class="card item-card">
@@ -99,24 +98,23 @@
                     </div>
                 </div>
             </div>
-            <div class="card item-card">
-                <div class="section-head">
-                    <div><h2>Endpoints principais</h2>
-                        <p>Os endpoints reais da API atual.</p></div>
-                    <a class="btn" href="api.html">Documentação</a></div>
-                <div class="endpoint"><span class="method GET">GET</span>
-                    <div><code>/grade-manager</code><small>Lista os gerenciadores</small></div>
-                </div>
-                <div class="endpoint"><span class="method POST">POST</span>
-                    <div><code>/grade-manager</code><small>Cria um gerenciador</small></div>
-                </div>
-                <div class="endpoint"><span class="method GET">GET</span>
-                    <div><code>/grade-manager/{gmId}/semester</code><small>Lista os semestres de um GM</small></div>
-                </div>
-                <div class="endpoint"><span class="method POST">POST</span>
-                    <div><code>/grade-manager/semester/{semesterId}/course</code><small>Cria uma matéria</small></div>
-                </div>
-            </div>
+<!--            <div class="card item-card">-->
+<!--                <div class="section-head">-->
+<!--                    <div><h2>Endpoints principais</h2>-->
+<!--                        <p>Os endpoints reais da API atual.</p></div>-->
+<!--                <div class="endpoint"><span class="method GET">GET</span>-->
+<!--                    <div><code>/grade-manager</code><small>Lista os gerenciadores</small></div>-->
+<!--                </div>-->
+<!--                <div class="endpoint"><span class="method POST">POST</span>-->
+<!--                    <div><code>/grade-manager</code><small>Cria um gerenciador</small></div>-->
+<!--                </div>-->
+<!--                <div class="endpoint"><span class="method GET">GET</span>-->
+<!--                    <div><code>/grade-manager/{gmId}/semester</code><small>Lista os semestres de um GM</small></div>-->
+<!--                </div>-->
+<!--                <div class="endpoint"><span class="method POST">POST</span>-->
+<!--                    <div><code>/grade-manager/semester/{semesterId}/course</code><small>Cria uma matéria</small></div>-->
+<!--                </div>-->
+<!--            </div>-->
         </section>
     </main>
 
