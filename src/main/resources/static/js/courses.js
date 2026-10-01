@@ -247,7 +247,7 @@ async function gerarCards() {
                         <div class="card-footer">
                             <button class="btn primary open-gu-modal"
                                     data-grade-id="${obj.gradeResponses[0].id}">
-                                + Atualizar nota
+                                + Atualizar Nota 1º Bim
                             </button>
                         </div>
                     </div>
@@ -263,7 +263,7 @@ async function gerarCards() {
                         <div class="card-footer">
                             <button class="btn primary open-gu-modal"
                                     data-grade-id="${obj.gradeResponses[1].id}">
-                                + Atualizar nota
+                                + Atualizar Nota 2º Bim
                             </button>
                         </div>
                     </div>
