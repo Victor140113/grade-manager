@@ -81,7 +81,7 @@ public class CourseService {
                                 ))
                                 .toList(),
                         course.getSemester().getId(),
-                        (course.getGrades().get(0).getValue() + course.getGrades().get(1).getValue()) / 2
+                        calculateAVG(course.getGrades().get(0).getValue(), course.getGrades().get(1).getValue())
                 ))
                 .toList();
 
@@ -92,6 +92,19 @@ public class CourseService {
 
     public CourseEntity getCourseById(Long id) {
         return database.findById(id).orElse(null);
+    }
+
+    public Double calculateAVG(Double grade1, Double grade2) {
+
+        Double avg;
+
+        if (grade1 != null && grade2 != null) {
+            avg = (grade1 + grade2) / 2;
+            return avg;
+        } else {
+            return null;
+        }
+
     }
 
 }

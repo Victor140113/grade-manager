@@ -199,6 +199,8 @@ async function gerarCards() {
     const response = await fetch(`http://localhost:8080/grade-manager/semester/${semesterId}/course`);
     const json = await response.json();
 
+    console.log(json);
+
     for (const obj of json) {
 
         const card = document.createElement("article");
