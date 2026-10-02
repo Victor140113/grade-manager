@@ -3,6 +3,7 @@ const eyebrow = document.querySelector(".eyebrow");
 
 const params = new URLSearchParams(window.location.search);
 const gradeManagerId = params.get("id");
+
 const gradeManagerName = params.get("name");
 
 eyebrow.textContent = gradeManagerName;
@@ -16,20 +17,28 @@ const createSemesterModalButton = document.getElementById("modal-create");
 const cancelModalButton = document.getElementById("modal-cancel");
 const closeModalButton = document.getElementById("modal-close");
 
+function hiddenModal(modal) {
+    modal.classList.add("hidden");
+}
+
+function showModal(modal) {
+    modal.classList.remove("hidden");
+}
+
 closeModalButton.addEventListener("click", () => {
-    semesterModal.classList.add("hidden");
+    hiddenModal(semesterModal);
 })
 
 newSemesterButton.addEventListener("click", () => {
-    semesterModal.classList.remove("hidden");
+    showModal(semesterModal);
 });
 
 createSemesterModalButton.addEventListener("click", () => {
-    semesterModal.classList.remove("hidden");
+    showModal(semesterModal);
 });
 
 cancelModalButton.addEventListener("click", () => {
-    semesterModal.classList.add("hidden");
+    hiddenModal(semesterModal);
 });
 
 // POST Semester
@@ -53,23 +62,41 @@ semesterForm.addEventListener("submit", async (e) => {
 
 });
 
-// DELETE Semester
+// Delete Modal
+
+const deleteSemesterModal = document.getElementById("delete-modal");
+const closeDeleteModalButton = document.getElementById("delete-modal-close");
+const cancelDeleteModalButton = document.getElementById("delete-modal-cancel");
+const deleteModalButton = document.getElementById("delete-modal-confirm");
+let targetSemesterId;
+
 
 function setupDeleteSemesterButton() {
 
-    cardsGrid.addEventListener("click", async (e) => {
+    cardsGrid.addEventListener("click", (e) => {
 
         if (e.target.classList.contains("delete-semester")) {
 
-            const semesterId = e.target.dataset.semesterId;
-            const response = await fetch(`http://localhost:8080/grade-manager/${gradeManagerId}/semester/${semesterId}`, {method: "DELETE"});
-
-            if (response.ok) document.location.reload();
+            targetSemesterId = e.target.dataset.semesterId;
+            showModal(deleteSemesterModal);
         }
     });
 }
 
-// Cards
+closeDeleteModalButton.addEventListener("click", () => {
+    hiddenModal(deleteSemesterModal);
+});
+
+cancelDeleteModalButton.addEventListener("click", () => {
+    hiddenModal(deleteSemesterModal);
+});
+
+deleteModalButton.addEventListener("click", async () => {
+    const response = await fetch(`http://localhost:8080/grade-manager/${gradeManagerId}/semester/${targetSemesterId}`, {method: "DELETE"});
+    if (response.ok) document.location.reload();
+})
+
+// Semester Cards
 
 async function generateCards() {
 
@@ -80,10 +107,10 @@ async function generateCards() {
 
     for (const semester of semesters) {
 
-        const card = document.createElement("article");
-        card.classList.add("card", "item-card");
+        const semesterCardElement = document.createElement("article");
+        semesterCardElement.classList.add("card", "item-card");
 
-        card.innerHTML = `
+        semesterCardElement.innerHTML = `
                 <div class="item-head">
                     <div class="icon">${semesterCount}</div>
                     <div class="item-main"><h2>${semester.name}</h2>
@@ -98,7 +125,7 @@ async function generateCards() {
                     <button class="btn danger delete-semester" data-semester-id="${semester.id}">Excluir</button>
                 </div>
         `
-        cardsGrid.appendChild(card);
+        cardsGrid.appendChild(semesterCardElement);
         semesterCount++;
     }
 }
