@@ -1,14 +1,16 @@
-const gridPai = document.getElementById("grid-cards");
+const cardsGrid = document.getElementById("grid-cards");
 
-const parameter = new URLSearchParams(window.location.search);
+const urlSearchParams = new URLSearchParams(window.location.search);
 
-const semesterName = parameter.get("semester-name");
-const semesterId = parameter.get("semester-id");
+const semesterName = urlSearchParams.get("semester-name");
+const semesterId = urlSearchParams.get("semester-id");
 
 const eyebrow = document.querySelector(".eyebrow");
 eyebrow.textContent = semesterName;
 
-// Modal Delete Config
+
+// Delete Modal
+
 const deleteModal = document.getElementById("delete-modal");
 const deleteModalTitle = document.getElementById("delete-modal-title");
 const deleteModalText = document.getElementById("delete-modal-text");
@@ -24,48 +26,49 @@ async function confirmDeleteCourse(courseId, semesterId){
 
 btnCloseDeleteModal.addEventListener("click", () =>{
     hiddenModal(deleteModal);
-})
+});
+
 btnCancelDeleteModal.addEventListener("click", () =>{
     hiddenModal(deleteModal);
-})
+});
 
 btnDeleteModal.addEventListener("click", () =>{
     confirmDeleteCourse(courseId, semesterId);
-})
+});
 
 
-// --------------------- POST Form --------------------
+// Post Form
 
 const form = document.getElementById("modal-form");
-const inputData = document.getElementById("modal-input");
-const inputValue = document.getElementById("modal-value");
-const valueGroup = document.getElementById("modal-value-group");
+const dataInput = document.getElementById("modal-input");
+const valueInput = document.getElementById("modal-value");
+const inputValueGroupElement = document.getElementById("modal-value-group");
 
 form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    const type = form.dataset.type;
-    const id = form.dataset.id;
+    const targetType = form.dataset.type;
+    const targetId = form.dataset.id;
 
     let url;
     let body;
 
-    if (type === "course") {
+    if (targetType === "course") {
 
-        url = `http://localhost:8080/grade-manager/semester/${id}/course`;
+        url = `http://localhost:8080/grade-manager/semester/${targetId}/course`;
 
         body = {
-            name: inputData.value.trim()
+            name: dataInput.value.trim()
         };
 
-    } else if (type === "grade-update") {
+    } else if (targetType === "grade-update") {
 
-        url = `http://localhost:8080/grade-manager/semester/course/grade/${id}/grade-update`;
+        url = `http://localhost:8080/grade-manager/semester/course/grade/${targetId}/grade-update`;
 
         body = {
-            description: inputData.value.trim(),
-            value: Number(inputValue.value)
+            description: dataInput.value.trim(),
+            value: Number(valueInput.value)
         };
     }
 
@@ -82,19 +85,17 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
-// -------------------------------------------------------------
 
-// ------------------------ Botão Voltar Modal -------------------------
+// Navegação
 
-const backBtn = document.getElementById("btn-back");
+const backButton = document.getElementById("btn-back");
 
-backBtn.addEventListener("click", () => {
+backButton.addEventListener("click", () => {
     history.back();
 });
 
-// ---------------------------------------------------------------------
 
-// ---------------------------- Modal Config ---------------------------
+// Modal Config
 
 function hiddenModal(modal){
     modal.classList.add("hidden");
@@ -104,106 +105,99 @@ function showModal(modal){
     modal.classList.remove("hidden");
 }
 
-const btnOpenModalCourse = document.getElementById("modal-open");
-const modal = document.getElementById("modal");
-const btnCreate = document.getElementById("modal-create");
-const btnCancel = document.getElementById("modal-cancel");
-const btnCloseModal = document.getElementById("modal-close");
+const newCourseButton = document.getElementById("modal-open");
+const newCourseModal = document.getElementById("modal");
+const createCourseModalButton = document.getElementById("modal-create");
+const cancelCourseModalButton = document.getElementById("modal-cancel");
+const closeCourseModalButton = document.getElementById("modal-close");
 
-btnCloseModal.addEventListener("click", () => {
-    modal.classList.add("hidden");
+closeCourseModalButton.addEventListener("click", () => {
+    hiddenModal(newCourseModal);
 });
 
-btnOpenModalCourse.addEventListener("click", () => {
+newCourseButton.addEventListener("click", () => {
 
     form.dataset.type = "course";
     form.dataset.id = semesterId;
 
-    modal.querySelector("#modal-title").textContent = "Nova Matéria";
-    modal.querySelector("#modal-label").textContent = "Nome";
+    newCourseModal.querySelector("#modal-title").textContent = "Nova Matéria";
+    newCourseModal.querySelector("#modal-label").textContent = "Nome";
 
-    inputData.placeholder = "Digite o nome";
+    dataInput.placeholder = "Digite o nome";
 
-    valueGroup.classList.add("hidden");
-    inputValue.required = false;
+    inputValueGroupElement.classList.add("hidden");
+    valueInput.required = false;
 
-    modal.classList.remove("hidden");
+    showModal(newCourseModal);
 });
 
-btnCreate.addEventListener("click", () => {
-    modal.classList.remove("hidden");
+createCourseModalButton.addEventListener("click", () => {
+    showModal(newCourseModal);
 });
 
-btnCancel.addEventListener("click", () => {
-    modal.classList.add("hidden");
+cancelCourseModalButton.addEventListener("click", () => {
+    hiddenModal(newCourseModal);
 });
 
-// --------------------------------------------------------------------------
 
-// --------------------------- Gera Card Updates ----------------------------
+// Gera os Grade Updates dentro de updatesContainer
 
-function gerarUpdates(gradeUpdates, pai) {
+function generateUpdates(gradeUpdates, updatesContainer) {
 
-    for (const gu of gradeUpdates) {
+    for (const gradeUpdate of gradeUpdates) {
 
-        const guHtml = document.createElement("div");
-        guHtml.classList.add("update");
+        const gradeUpdateElement = document.createElement("div");
+        gradeUpdateElement.classList.add("update");
 
-        guHtml.innerHTML = `<div class="update-main">
-                <strong>${gu.description}</strong>
+        gradeUpdateElement.innerHTML = `<div class="update-main">
+                <strong>${gradeUpdate.description}</strong>
             </div>
-            <span class="update-value">+${String(gu.value).replace(".", ",")}</span>
-            <button class="btn danger delete-grade-update" data-grade-id="${gu.gradeId}" data-grade-update-id="${gu.id}">Excluir</button>`;
+            <span class="update-value">+${String(gradeUpdate.value).replace(".", ",")}</span>
+            <button class="btn danger delete-grade-update" data-grade-id="${gradeUpdate.gradeId}" data-grade-update-id="${gradeUpdate.id}">Excluir</button>`;
 
-        pai.appendChild(guHtml);
+        updatesContainer.appendChild(gradeUpdateElement);
     }
 }
 
-// --------------------------------------------------------------------------
 
+// Configuração do modal de criação de gradeUpdates
 
-// ------------------------------ Post Updates ------------------------------
+function setupGradeUpdateButtons(buttonsCollection) {
 
-function postUpdate(btns) {
+    for (const button of buttonsCollection) {
 
-    for (const btn of btns) {
-
-        btn.addEventListener("click", e => {
+        button.addEventListener("click", () => {
 
             form.dataset.type = "grade-update";
-            form.dataset.id = btn.dataset.gradeId;
+            form.dataset.id = button.dataset.gradeId;
 
-            modal.querySelector("#modal-title").textContent = "Nova Nota";
-            modal.querySelector("#modal-label").textContent = "Descrição";
+            newCourseModal.querySelector("#modal-title").textContent = "Nova Nota";
+            newCourseModal.querySelector("#modal-label").textContent = "Descrição";
 
-            inputData.placeholder = "Digite a descrição";
+            dataInput.placeholder = "Digite a descrição";
+            valueInput.required = true;
 
-            valueGroup.classList.remove("hidden");
-            inputValue.required = true;
-
-            modal.classList.remove("hidden");
+            showModal(inputValueGroupElement);
+            
+            showModal(newCourseModal);
 
         });
     }
 }
 
-// ----------------------------------------------------------------------------
 
-
-// --------------------------- Delete Handle ----------------------------
+// Gerenciador de exclusões
 
 function handleDelete() {
 
-
-    gridPai.addEventListener("click", async (e) => {
-
+    cardsGrid.addEventListener("click", async (e) => {
 
         if (e.target.classList.contains("delete-grade-update")) {
 
-            const guId = e.target.dataset.gradeUpdateId;
+            const gradeUpdateId = e.target.dataset.gradeUpdateId;
             const gradeId = e.target.dataset.gradeId;
 
-            const response = await fetch(`http://localhost:8080/grade-manager/semester/course/grade/${gradeId}/grade-update/${guId}`, {method: "DELETE"});
+            const response = await fetch(`http://localhost:8080/grade-manager/semester/course/grade/${gradeId}/grade-update/${gradeUpdateId}`, {method: "DELETE"});
 
             if (response.ok) document.location.reload();
 
@@ -213,7 +207,6 @@ function handleDelete() {
 
             const courseName = e.target.dataset.courseName;
             courseId = e.target.dataset.courseId;
-            btnDeleteModal.dataset.courseId = courseId;
 
             deleteModalTitle.textContent = "Excluir " + courseName + "?";
             deleteModalText.textContent = "Tem certeza que deseja excluir " + courseName + "? Essa ação não poderá ser desfeita."
@@ -223,51 +216,47 @@ function handleDelete() {
         }
 
     });
-
-
 }
 
 
+// Gera Cards
 
-// ----------------------------------------------------------------------------
-
-
-// Gera cards com dados vindos do banco
-async function gerarCards() {
+// Busca os cursos no banco e gera os cards na tela
+async function generateCourseCards() {
 
     const response = await fetch(`http://localhost:8080/grade-manager/semester/${semesterId}/course`);
-    const json = await response.json();
+    const courses = await response.json();
 
-    for (const obj of json) {
+    for (const course of courses) {
 
-        const card = document.createElement("article");
-        card.classList.add("card", "item-card");
+        const courseCardElement = document.createElement("article");
+        courseCardElement.classList.add("card", "item-card");
 
-        card.innerHTML = `
+        courseCardElement.innerHTML = `
                 <div class="item-head">
-                    <div class="icon">${String(obj.name).charAt(0).toUpperCase()}</div>
-                    <div class="item-main"><h2>${obj.name}</h2>
+                    <div class="icon">${String(course.name).charAt(0).toUpperCase()}</div>
+                    <div class="item-main"><h2>${course.name}</h2>
                         <p>Course #11</p>
                     </div>
-                    <button class="btn danger delete-course" data-course-id="${obj.id}" data-semester-id="${obj.semesterId}" data-course-name="${obj.name}">Excluir</button>
+                    <button class="btn danger delete-course" data-course-id="${course.id}" data-course-name="${course.name}">Excluir</button>
                 </div>
 
                 <div class="grade-grid">
                     <div class="grade">
                         <small>1º Bimestre</small>
-                        <strong>${obj.gradeResponses[0].value == null || obj.gradeResponses[0].value <= 0 ? "—" : String(obj.gradeResponses[0].value.toFixed(2)).replace(".", ",")}</strong>
-                        <span class="badge green">${obj.gradeResponses[0].gradeUpdates.length} updates</span>
+                        <strong>${course.gradeResponses[0].value == null || course.gradeResponses[0].value <= 0 ? "—" : String(course.gradeResponses[0].value.toFixed(2)).replace(".", ",")}</strong>
+                        <span class="badge green">${course.gradeResponses[0].gradeUpdates.length} updates</span>
                     </div>
 
                     <div class="grade">
                         <small>2º Bimestre</small>
-                        <strong>${obj.gradeResponses[1].value == null || obj.gradeResponses[1].value <= 0 ? "—" : String(obj.gradeResponses[1].value.toFixed(2)).replace(".", ",")}</strong>
-                        <span class="badge green">${obj.gradeResponses[1].gradeUpdates.length} updates</span>
+                        <strong>${course.gradeResponses[1].value == null || course.gradeResponses[1].value <= 0 ? "—" : String(course.gradeResponses[1].value.toFixed(2)).replace(".", ",")}</strong>
+                        <span class="badge green">${course.gradeResponses[1].gradeUpdates.length} updates</span>
                     </div>
                     
                     <div class="grade">
                         <small>Média Semestral</small>
-                        <strong>${obj.avg == null || obj.avg <= 0 ? "—" : String(obj.avg.toFixed(2)).replace(".", ",")}</strong>
+                        <strong>${course.avg == null || course.avg <= 0 ? "—" : String(course.avg.toFixed(2)).replace(".", ",")}</strong>
                     </div>
                     
                 </div>
@@ -285,7 +274,7 @@ async function gerarCards() {
 
                         <div class="card-footer">
                             <button class="btn primary open-gu-modal"
-                                    data-grade-id="${obj.gradeResponses[0].id}">
+                                    data-grade-id="${course.gradeResponses[0].id}">
                                 + Atualizar Nota 1º Bim
                             </button>
                         </div>
@@ -301,7 +290,7 @@ async function gerarCards() {
 
                         <div class="card-footer">
                             <button class="btn primary open-gu-modal"
-                                    data-grade-id="${obj.gradeResponses[1].id}">
+                                    data-grade-id="${course.gradeResponses[1].id}">
                                 + Atualizar Nota 2º Bim
                             </button>
                         </div>
@@ -309,21 +298,21 @@ async function gerarCards() {
                 </details>
             `;
 
-        gerarUpdates(
-            obj.gradeResponses[0].gradeUpdates,
-            card.querySelector(".grade-updates-1b"),
+        generateUpdates(
+            course.gradeResponses[0].gradeUpdates,
+            courseCardElement.querySelector(".grade-updates-1b"),
         );
 
-        gerarUpdates(
-            obj.gradeResponses[1].gradeUpdates,
-            card.querySelector(".grade-updates-2b"),
+        generateUpdates(
+            course.gradeResponses[1].gradeUpdates,
+            courseCardElement.querySelector(".grade-updates-2b"),
         );
 
-        postUpdate(card.querySelectorAll(".open-gu-modal"));
+        setupGradeUpdateButtons(courseCardElement.querySelectorAll(".open-gu-modal"));
 
-        gridPai.appendChild(card);
+        cardsGrid.appendChild(courseCardElement);
     }
 }
 
-gerarCards();
+generateCourseCards();
 handleDelete();
