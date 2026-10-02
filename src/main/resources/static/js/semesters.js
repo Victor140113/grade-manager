@@ -1,51 +1,51 @@
-const grid = document.getElementById("grid-cards-semester");
-const gradeNameTitle = document.querySelector(".eyebrow");
+const cardsGrid = document.getElementById("grid-cards-semester");
+const eyebrow = document.querySelector(".eyebrow");
 
 const params = new URLSearchParams(window.location.search);
-const gmId = params.get("id");
-const gradeName = params.get("name");
+const gradeManagerId = params.get("id");
+const gradeManagerName = params.get("name");
 
-gradeNameTitle.textContent = gradeName;
+eyebrow.textContent = gradeManagerName;
 
 
-// --------------------- Modal Config --------------------
+// Modal
 
-const btnOpenModal = document.getElementById("modal-open");
-const modal = document.getElementById("modal");
-const btnCreate = document.getElementById("model-create");
-const btnCancel = document.getElementById("modal-cancel");
-const btnCloseModal = document.getElementById("modal-close");
+const newSemesterButton = document.getElementById("modal-open");
+const semesterModal = document.getElementById("modal");
+const createSemesterModalButton = document.getElementById("modal-create");
+const cancelModalButton = document.getElementById("modal-cancel");
+const closeModalButton = document.getElementById("modal-close");
 
-btnCloseModal.addEventListener("click", () => {
-    modal.classList.add("hidden");
+closeModalButton.addEventListener("click", () => {
+    semesterModal.classList.add("hidden");
 })
 
-btnOpenModal.addEventListener("click", () => {
-    modal.classList.remove("hidden");
+newSemesterButton.addEventListener("click", () => {
+    semesterModal.classList.remove("hidden");
 });
 
-btnCreate.addEventListener("click", () => {
-    modal.classList.remove("hidden");
+createSemesterModalButton.addEventListener("click", () => {
+    semesterModal.classList.remove("hidden");
 });
 
-btnCancel.addEventListener("click", () => {
-    modal.classList.add("hidden");
+cancelModalButton.addEventListener("click", () => {
+    semesterModal.classList.add("hidden");
 });
 
-// --------------------- POST Semester --------------------
+// POST Semester
 
-const formSemester = document.getElementById("modal-form");
-const inputNameSemester = document.getElementById("modal-input");
+const semesterForm = document.getElementById("modal-form");
+const semesterNameInput = document.getElementById("modal-input");
 
-formSemester.addEventListener("submit", async (e) => {
+semesterForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    const response = await fetch(`http://localhost:8080/grade-manager/${gmId}/semester`, {
+    const response = await fetch(`http://localhost:8080/grade-manager/${gradeManagerId}/semester`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-            name: inputNameSemester.value.trim()
+            name: semesterNameInput.value.trim()
         })
     });
 
@@ -53,60 +53,55 @@ formSemester.addEventListener("submit", async (e) => {
 
 });
 
-// -------------------------------------------------------------
+// DELETE Semester
 
-// ----------------------- DELETE Semester ---------------------
+function setupDeleteSemesterButton() {
 
-function deleteSemester() {
-
-    grid.addEventListener("click", async (e) => {
+    cardsGrid.addEventListener("click", async (e) => {
 
         if (e.target.classList.contains("delete-semester")) {
 
             const semesterId = e.target.dataset.semesterId;
-            const response = await fetch(`http://localhost:8080/grade-manager/${gmId}/semester/${semesterId}`, {method: "DELETE"});
+            const response = await fetch(`http://localhost:8080/grade-manager/${gradeManagerId}/semester/${semesterId}`, {method: "DELETE"});
 
             if (response.ok) document.location.reload();
         }
     });
 }
 
-// -------------------------------------------------------------
+// Cards
 
+async function generateCards() {
 
-// --------------------------- Cards ---------------------------
-async function gerarCards() {
+    const response = await fetch(`http://localhost:8080/grade-manager/${gradeManagerId}/semester`)
+    const semesters = await response.json();
 
-    const response = await fetch(`http://localhost:8080/grade-manager/${gmId}/semester`)
-    const json = await response.json();
+    let semesterCount = 1;
 
-    let contagem = 1;
-
-    for (const obj of json) {
+    for (const semester of semesters) {
 
         const card = document.createElement("article");
         card.classList.add("card", "item-card");
 
         card.innerHTML = `
                 <div class="item-head">
-                    <div class="icon">${contagem}</div>
-                    <div class="item-main"><h2>${obj.name}</h2>
+                    <div class="icon">${semesterCount}</div>
+                    <div class="item-main"><h2>${semester.name}</h2>
                         <p>Terceiro período</p>
                     </div>
                 </div>
                 <div class="meta">
-                    <span class="badge cyan">${obj.courseQuantity} matéria${obj.courseQuantity > 1 ? "s" : ""}</span>
+                    <span class="badge cyan">${semester.courseQuantity} matéria${semester.courseQuantity > 1 ? "s" : ""}</span>
                 </div>
                 <div class="card-footer">
-                    <a class="btn primary" href="courses.html?semester-id=${obj.id}&semester-name=${obj.name}">Abrir semestre</a>
-                    <button class="btn danger delete-semester" data-semester-id="${obj.id}">Excluir</button>
+                    <a class="btn primary" href="courses.html?semester-id=${semester.id}&semester-name=${semester.name}">Abrir semestre</a>
+                    <button class="btn danger delete-semester" data-semester-id="${semester.id}">Excluir</button>
                 </div>
         `
-        grid.appendChild(card);
-        contagem++;
+        cardsGrid.appendChild(card);
+        semesterCount++;
     }
 }
 
-gerarCards();
-deleteSemester();
-// -------------------------------------------------------------
+generateCards();
+setupDeleteSemesterButton();
