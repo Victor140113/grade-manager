@@ -8,6 +8,32 @@ const semesterId = parameter.get("semester-id");
 const eyebrow = document.querySelector(".eyebrow");
 eyebrow.textContent = semesterName;
 
+// Modal Delete Config
+const deleteModal = document.getElementById("delete-modal");
+const deleteModalTitle = document.getElementById("delete-modal-title");
+const deleteModalText = document.getElementById("delete-modal-text");
+const btnCloseDeleteModal = document.getElementById("delete-modal-close");
+const btnCancelDeleteModal = document.getElementById("delete-modal-cancel");
+const btnDeleteModal = document.getElementById("delete-modal-confirm");
+let courseId;
+
+async function confirmDeleteCourse(courseId, semesterId){
+    const response = await fetch(`http://localhost:8080/grade-manager/semester/${semesterId}/course/${courseId}`, {method: "DELETE"});
+    if (response.ok) document.location.reload();
+}
+
+btnCloseDeleteModal.addEventListener("click", () =>{
+    hiddenModal(deleteModal);
+})
+btnCancelDeleteModal.addEventListener("click", () =>{
+    hiddenModal(deleteModal);
+})
+
+btnDeleteModal.addEventListener("click", () =>{
+    confirmDeleteCourse(courseId, semesterId);
+})
+
+
 // --------------------- POST Form --------------------
 
 const form = document.getElementById("modal-form");
@@ -69,6 +95,14 @@ backBtn.addEventListener("click", () => {
 // ---------------------------------------------------------------------
 
 // ---------------------------- Modal Config ---------------------------
+
+function hiddenModal(modal){
+    modal.classList.add("hidden");
+}
+
+function showModal(modal){
+    modal.classList.remove("hidden");
+}
 
 const btnOpenModalCourse = document.getElementById("modal-open");
 const modal = document.getElementById("modal");
@@ -156,7 +190,7 @@ function postUpdate(btns) {
 // ----------------------------------------------------------------------------
 
 
-// --------------------------- Delete Grade Update ----------------------------
+// --------------------------- Delete Handle ----------------------------
 
 function handleDelete() {
 
@@ -177,11 +211,14 @@ function handleDelete() {
 
         if (e.target.classList.contains("delete-course")) {
 
-            const semesterId = e.target.dataset.semesterId;
-            const courseId = e.target.dataset.courseId;
+            const courseName = e.target.dataset.courseName;
+            courseId = e.target.dataset.courseId;
+            btnDeleteModal.dataset.courseId = courseId;
 
-            const response = await fetch(`http://localhost:8080/grade-manager/semester/${semesterId}/course/${courseId}`, {method: "DELETE"});
-            if (response.ok) document.location.reload();
+            deleteModalTitle.textContent = "Excluir " + courseName + "?";
+            deleteModalText.textContent = "Tem certeza que deseja excluir " + courseName + "? Essa ação não poderá ser desfeita."
+
+            showModal(deleteModal);
 
         }
 
@@ -189,6 +226,8 @@ function handleDelete() {
 
 
 }
+
+
 
 // ----------------------------------------------------------------------------
 
@@ -210,7 +249,7 @@ async function gerarCards() {
                     <div class="item-main"><h2>${obj.name}</h2>
                         <p>Course #11</p>
                     </div>
-                    <button class="btn danger delete-course" data-course-id="${obj.id}" data-semester-id="${obj.semesterId}">Excluir</button>
+                    <button class="btn danger delete-course" data-course-id="${obj.id}" data-semester-id="${obj.semesterId}" data-course-name="${obj.name}">Excluir</button>
                 </div>
 
                 <div class="grade-grid">
