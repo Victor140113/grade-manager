@@ -1,37 +1,45 @@
-const grid = document.getElementById("grid-cards");
+const cardsGrid = document.getElementById("grid-cards");
 
-// --------------------- Modal Config --------------------
 
-const btnOpenModal = document.getElementById("modal-open")
-const modal = document.getElementById("modal");
-const btnCreate = document.getElementById("btn-create");
-const btnCancel = document.getElementById("modal-cancel");
-const btnCloseModal = document.getElementById("modal-close");
+// Modal
 
-btnCloseModal.addEventListener("click", () => {
+const newGradeManagerButton = document.getElementById("modal-open");
+const gradeManagerModal = document.getElementById("modal");
+const createGradeManagerModalButton = document.getElementById("btn-create");
+const cancelModalButton = document.getElementById("modal-cancel");
+const closeModalButton = document.getElementById("modal-close");
+
+function hiddenModal(modal) {
     modal.classList.add("hidden");
-});
+}
 
-btnOpenModal.addEventListener("click", () => {
+function showModal(modal) {
     modal.classList.remove("hidden");
+}
+
+closeModalButton.addEventListener("click", () => {
+    hiddenModal(gradeManagerModal);
 });
 
-btnCreate.addEventListener("click", () => {
-    modal.classList.remove("hidden");
+newGradeManagerButton.addEventListener("click", () => {
+    showModal(gradeManagerModal);
 });
 
-btnCancel.addEventListener("click", () => {
-    modal.classList.add("hidden");
+createGradeManagerModalButton.addEventListener("click", () => {
+    showModal(gradeManagerModal);
 });
 
-// -----------------------------------------------------
+cancelModalButton.addEventListener("click", () => {
+    hiddenModal(gradeManagerModal);
+});
 
-// --------------------- POST Grade Manager --------------------
 
-const formGM = document.getElementById("modal-form");
-const inputNameGM = document.getElementById("modal-input");
+// POST Grade Manager
 
-formGM.addEventListener("submit", async (e) => {
+const gradeManagerForm = document.getElementById("modal-form");
+const gradeManagerNameInput = document.getElementById("modal-input");
+
+gradeManagerForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
@@ -39,7 +47,7 @@ formGM.addEventListener("submit", async (e) => {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-            name: inputNameGM.value.trim()
+            name: gradeManagerNameInput.value.trim()
         })
     });
 
@@ -47,60 +55,62 @@ formGM.addEventListener("submit", async (e) => {
 
 });
 
-// -------------------------------------------------------------
 
-// --------------------- DELETE Grade Manager --------------------
+// DELETE Grade Manager
 
-function deleteGradeManager(){
+function setupDeleteGradeManagerButton() {
 
-    grid.addEventListener("click", async (e)=>{
+    cardsGrid.addEventListener("click", async (e) => {
 
-        if(e.target.classList.contains("delete-grade-manager")){
+        if (e.target.classList.contains("delete-grade-manager")) {
 
-            const gmId = e.target.dataset.gradeManagerId;
-            const response = await fetch(`http://localhost:8080/grade-manager/${gmId}`, {method: "DELETE"});
+            const gradeManagerId = e.target.dataset.gradeManagerId;
 
-            if(response.ok) window.location.reload();
+            const response = await fetch(
+                `http://localhost:8080/grade-manager/${gradeManagerId}`,
+                {method: "DELETE"}
+            );
+
+            if (response.ok) window.location.reload();
 
         }
-
-    })
+    });
 }
 
-// -------------------------------------------------------------
 
+// Grade Manager Cards
 
-async function gerarCards() {
+async function generateCards() {
 
     const response = await fetch("http://localhost:8080/grade-manager");
-    const json = await response.json();
+    const gradeManagers = await response.json();
 
-    for (const obj of json) {
+    for (const gradeManager of gradeManagers) {
 
-        const card = document.createElement("article");
-        card.classList.add("card", "item-card")
-        card.setAttribute("data-grade-id", obj.id)
+        const gradeManagerCardElement = document.createElement("article");
+        gradeManagerCardElement.classList.add("card", "item-card");
+        gradeManagerCardElement.setAttribute("data-grade-id", gradeManager.id);
 
-        card.innerHTML = `
+        gradeManagerCardElement.innerHTML = `
             <div class="item-head">
                 <div class="icon">W</div>
                 <div class="item-main">
-                    <h2>${obj.name}</h2>
+                    <h2>${gradeManager.name}</h2>
                 </div>
             </div>
             <div class="meta">
-                <span class="badge">${obj.semesterQuantity} semestre${obj.semesterQuantity > 1 ? "s" : ""}</span>
+                <span class="badge">${gradeManager.semesterQuantity} semestre${gradeManager.semesterQuantity > 1 ? "s" : ""}</span>
             </div>
             <div class="card-footer">
-                <a class="btn" href="semesters.html?id=${obj.id}&name=${obj.name}">Ver semestres</a>
+                <a class="btn" href="semesters.html?id=${gradeManager.id}&name=${gradeManager.name}">Ver semestres</a>
                 <button class="btn">Editar</button>
-                <button class="btn danger delete-grade-manager" data-grade-manager-id="${obj.id}">Excluir</button>
+                <button class="btn danger delete-grade-manager" data-grade-manager-id="${gradeManager.id}">Excluir</button>
             </div>
-        `
-        grid.appendChild(card);
+        `;
+
+        cardsGrid.appendChild(gradeManagerCardElement);
     }
 }
 
-
-gerarCards();
-deleteGradeManager()
+generateCards();
+setupDeleteGradeManagerButton();
