@@ -78,6 +78,58 @@
 
 </div>
 
+<!-- Modal Exclusão -->
+
+<div id="delete-modal" class="modal-overlay hidden">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+                <div class="eyebrow">Confirmação</div>
+                <h2 id="delete-modal-title">Excluir item?</h2>
+            </div>
+
+            <button
+                    id="delete-modal-close"
+                    class="modal-close"
+                    type="button"
+                    aria-label="Fechar"
+            >
+                &times;
+            </button>
+
+        </div>
+
+        <p id="delete-modal-text">
+
+        </p>
+
+        <div class="modal-actions">
+
+            <button
+                    id="delete-modal-cancel"
+                    class="btn"
+                    type="button"
+            >
+                Cancelar
+            </button>
+
+            <button
+                    id="delete-modal-confirm"
+                    class="btn danger"
+                    type="button"
+            >
+                Excluir
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 <script src="js/managers.js"></script>
 </body>
 </html>

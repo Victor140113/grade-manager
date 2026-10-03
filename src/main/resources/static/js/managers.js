@@ -1,6 +1,5 @@
 const cardsGrid = document.getElementById("grid-cards");
 
-
 // Modal
 
 const newGradeManagerButton = document.getElementById("modal-open");
@@ -58,25 +57,48 @@ gradeManagerForm.addEventListener("submit", async (e) => {
 
 // DELETE Grade Manager
 
+const deleteGradeManagerModal = document.getElementById("delete-modal");
+const closeDeleteModalButton = document.getElementById("delete-modal-close");
+const cancelDeleteModalButton = document.getElementById("delete-modal-cancel");
+const deleteModalButton = document.getElementById("delete-modal-confirm");
+let targetGradeManagerId;
+
 function setupDeleteGradeManagerButton() {
 
     cardsGrid.addEventListener("click", async (e) => {
 
         if (e.target.classList.contains("delete-grade-manager")) {
 
-            const gradeManagerId = e.target.dataset.gradeManagerId;
+            // const gradeManagerId = e.target.dataset.gradeManagerId;
 
-            const response = await fetch(
-                `http://localhost:8080/grade-manager/${gradeManagerId}`,
-                {method: "DELETE"}
-            );
+            targetGradeManagerId = e.target.dataset.gradeManagerId;
 
-            if (response.ok) window.location.reload();
+
+            showModal(deleteGradeManagerModal);
+
+            // const response = await fetch(
+            //     `http://localhost:8080/grade-manager/${gradeManagerId}`,
+            //     {method: "DELETE"}
+            // );
+            //
+            // if (response.ok) window.location.reload();
 
         }
     });
 }
 
+closeDeleteModalButton.addEventListener("click", () => {
+    hiddenModal(deleteGradeManagerModal);
+});
+
+cancelDeleteModalButton.addEventListener("click", () => {
+    hiddenModal(deleteGradeManagerModal);
+});
+
+deleteModalButton.addEventListener("click", async () => {
+    const response = await fetch(`http://localhost:8080/grade-manager/${targetGradeManagerId}`, {method: "DELETE"});
+    if (response.ok) document.location.reload();
+})
 
 // Grade Manager Cards
 
