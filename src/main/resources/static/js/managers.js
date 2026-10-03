@@ -58,6 +58,8 @@ gradeManagerForm.addEventListener("submit", async (e) => {
 // DELETE Grade Manager
 
 const deleteGradeManagerModal = document.getElementById("delete-modal");
+const deleteModalTitle = document.getElementById("delete-modal-title");
+const deleteModalText = document.getElementById("delete-modal-text");
 const closeDeleteModalButton = document.getElementById("delete-modal-close");
 const cancelDeleteModalButton = document.getElementById("delete-modal-cancel");
 const deleteModalButton = document.getElementById("delete-modal-confirm");
@@ -69,19 +71,13 @@ function setupDeleteGradeManagerButton() {
 
         if (e.target.classList.contains("delete-grade-manager")) {
 
-            // const gradeManagerId = e.target.dataset.gradeManagerId;
-
+            const gradeManagerName = e.target.dataset.gradeManagerName;
             targetGradeManagerId = e.target.dataset.gradeManagerId;
 
+            deleteModalTitle.textContent = "Excluir " + gradeManagerName + "?";
+            deleteModalText.textContent = "Tem certeza que deseja excluir " + gradeManagerName + "? Essa ação não poderá ser desfeita."
 
             showModal(deleteGradeManagerModal);
-
-            // const response = await fetch(
-            //     `http://localhost:8080/grade-manager/${gradeManagerId}`,
-            //     {method: "DELETE"}
-            // );
-            //
-            // if (response.ok) window.location.reload();
 
         }
     });
@@ -126,7 +122,7 @@ async function generateCards() {
             <div class="card-footer">
                 <a class="btn" href="semesters.html?id=${gradeManager.id}&name=${gradeManager.name}">Ver semestres</a>
                 <button class="btn">Editar</button>
-                <button class="btn danger delete-grade-manager" data-grade-manager-id="${gradeManager.id}">Excluir</button>
+                <button class="btn danger delete-grade-manager" data-grade-manager-id="${gradeManager.id}" data-grade-manager-name="${gradeManager.name}">Excluir</button>
             </div>
         `;
 

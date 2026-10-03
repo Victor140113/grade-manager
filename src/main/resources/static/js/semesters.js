@@ -65,6 +65,8 @@ semesterForm.addEventListener("submit", async (e) => {
 // Delete Modal
 
 const deleteSemesterModal = document.getElementById("delete-modal");
+const deleteModalTitle = document.getElementById("delete-modal-title");
+const deleteModalText = document.getElementById("delete-modal-text");
 const closeDeleteModalButton = document.getElementById("delete-modal-close");
 const cancelDeleteModalButton = document.getElementById("delete-modal-cancel");
 const deleteModalButton = document.getElementById("delete-modal-confirm");
@@ -77,7 +79,11 @@ function setupDeleteSemesterButton() {
 
         if (e.target.classList.contains("delete-semester")) {
 
+            const semesterName = e.target.dataset.semesterName;
             targetSemesterId = e.target.dataset.semesterId;
+
+            deleteModalTitle.textContent = "Excluir " + semesterName + "?";
+            deleteModalText.textContent = "Tem certeza que deseja excluir " + semesterName + "? Essa ação não poderá ser desfeita."
             showModal(deleteSemesterModal);
         }
     });
@@ -122,7 +128,7 @@ async function generateCards() {
                 </div>
                 <div class="card-footer">
                     <a class="btn primary" href="courses.html?semester-id=${semester.id}&semester-name=${semester.name}">Abrir semestre</a>
-                    <button class="btn danger delete-semester" data-semester-id="${semester.id}">Excluir</button>
+                    <button class="btn danger delete-semester" data-semester-id="${semester.id}" data-semester-name="${semester.name}">Excluir</button>
                 </div>
         `
         cardsGrid.appendChild(semesterCardElement);
